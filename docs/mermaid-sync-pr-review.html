@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Reviewing what the Mermaid Diagram Sync bot regenerates — the trust gap, the thesis, the slice roadmap, the decisions, and what's shipped. Mermaid Chart, 2026." />
+<title>Mermaid Sync — PR Review · Project Documentation</title>
+<style>
+  :root{
+    --pink:#E0218A; --pink-deep:#9C1268; --pink-bg:#FCE3F1;
+    --purple:#6D5BD0; --purple-deep:#3F2F9C; --purple-bg:#EDEBFB;
+    --ink:#16151D; --muted:#6B6B78; --faint:#9A9AA6;
+    --line:#E7E7EC; --bg:#FBFBFC; --card:#FFFFFF;
+    --green:#1D9E75; --amber:#BA7517; --red:#D85A30;
+    --radius:14px; --maxw:880px;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased}
+  a{color:var(--purple-deep);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);font-weight:600}
+  header.hero{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+  h1{font-size:46px;line-height:1.08;font-weight:700;margin:14px 0 18px;letter-spacing:-.02em}
+  h1 .em{color:var(--pink)}
+  .lede{font-size:20px;color:var(--muted);max-width:660px;margin:0 0 26px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .chip{font-size:13px;padding:5px 12px;border-radius:999px;background:var(--purple-bg);color:var(--purple-deep);font-weight:600}
+  .chip.live{background:var(--pink-bg);color:var(--pink-deep)}
+  .byline{font-size:14px;color:var(--faint);margin-top:18px}
+  /* stat band */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:34px 0}
+  .stat{background:var(--card);padding:18px 20px}
+  .stat .k{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .stat .v{font-size:24px;font-weight:700;margin-top:4px;letter-spacing:-.01em}
+  .stat .v small{font-size:14px;font-weight:500;color:var(--muted)}
+  /* leadership card */
+  .tldr{background:var(--purple-bg);border-radius:var(--radius);padding:24px 26px;margin:34px 0}
+  .tldr h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--purple-deep)}
+  .tldr .row{margin-top:14px}
+  .tldr .row b{display:block;font-size:14px;color:var(--purple-deep)}
+  .tldr .row span{font-size:16px;color:var(--ink)}
+  /* toc */
+  nav.toc{margin:30px 0;padding:20px 24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+  nav.toc ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 24px}
+  nav.toc li{font-size:15px;color:var(--muted)}
+  nav.toc li .n{color:var(--pink);font-weight:700;font-variant-numeric:tabular-nums;margin-right:8px}
+  section{padding:48px 0;border-bottom:1px solid var(--line)}
+  .sec-no{font-size:13px;font-weight:700;color:var(--pink);letter-spacing:.06em}
+  h2{font-size:30px;font-weight:700;margin:6px 0 6px;letter-spacing:-.02em}
+  .sec-sub{color:var(--muted);font-size:17px;margin:0 0 18px}
+  h3{font-size:19px;font-weight:600;margin:28px 0 8px}
+  h4{font-size:15px;font-weight:600;margin:20px 0 6px;color:var(--purple-deep)}
+  p{margin:12px 0}
+  ul{margin:12px 0;padding-left:22px}
+  li{margin:6px 0}
+  .reframe{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:22px 0}
+  .reframe div{background:var(--card);padding:18px 20px}
+  .reframe .old b{color:var(--faint)} .reframe .new b{color:var(--pink)}
+  .reframe span{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);margin-bottom:6px}
+  figure{margin:26px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 6px;overflow-x:auto}
+  figure .mermaid{display:flex;justify-content:center}
+  figcaption{font-size:14px;color:var(--muted);margin-top:10px;padding:0 6px 8px;font-style:italic}
+  figcaption b{font-style:normal;color:var(--ink)}
+  /* slice cards */
+  .slice{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:14px 0;background:var(--card)}
+  .slice .head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .slice .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .slice h3{margin:0;font-size:18px}
+  .slice .est{font-size:13px;color:var(--muted);white-space:nowrap}
+  .badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+  .b-done{background:#E1F5EE;color:#0F6E56}
+  .b-prog{background:var(--pink-bg);color:var(--pink-deep)}
+  .b-todo{background:#F1EFE8;color:#5F5E5A}
+  .slice p{margin:8px 0 0;font-size:15.5px;color:var(--ink)}
+  .slice .note{font-size:13.5px;color:var(--muted);margin-top:8px}
+  /* callout */
+  .call{border-left:3px solid var(--pink);background:var(--pink-bg);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin:22px 0}
+  .call.purple{border-color:var(--purple);background:var(--purple-bg)}
+  .call b{color:var(--pink-deep)} .call.purple b{color:var(--purple-deep)}
+  .pov{border:1px dashed var(--purple);border-radius:var(--radius);padding:18px 20px;margin:22px 0;background:#fff}
+  .pov .who{font-size:13px;font-weight:600;color:var(--purple-deep);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+  .pov p{font-style:italic;margin:0;color:var(--ink)}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  td code,p code,li code{font-family:var(--mono);font-size:13px;background:#F4F4F6;padding:1px 5px;border-radius:5px}
+  .ok{color:var(--green);font-weight:600}
+  .no{color:var(--red);font-weight:600}
+  .timeline{border-left:2px solid var(--line);margin:18px 0;padding-left:0}
+  .ev{position:relative;padding:4px 0 18px 22px}
+  .ev::before{content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--purple);border:2px solid #fff}
+  .ev.done::before{background:var(--green)}
+  .ev .date{font-size:12px;font-family:var(--mono);color:var(--faint)}
+  .ev .t{font-weight:600;font-size:16px;margin:2px 0}
+  .ev p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+  footer{padding:40px 0 80px;color:var(--faint);font-size:14px}
+  .src{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .src a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+  details.acc{border:1px solid var(--line);border-radius:var(--radius);padding:0 18px;margin:10px 0;background:var(--card)}
+  details.acc>summary{cursor:pointer;font-weight:600;color:var(--purple-deep);padding:14px 0;list-style:none;font-size:15.5px}
+  details.acc>summary::-webkit-details-marker{display:none}
+  details.acc>summary::before{content:"\203A";display:inline-block;margin-right:10px;transition:transform .15s;color:var(--pink);font-weight:700}
+  details.acc[open]>summary::before{transform:rotate(90deg)}
+  details.acc .body{padding:0 2px 18px}
+  details.acc .body table{margin-top:0}
+  .mock{border:0.5px solid var(--line);border-radius:var(--radius);background:var(--card);overflow:hidden}
+  .mock .bar{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-bottom:0.5px solid var(--line);font-size:13px}
+  .mock .row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:0.5px solid var(--line);font-size:13px}
+  .mock .row:last-child{border-bottom:0}
+  .mock .stat{font-family:var(--mono);font-size:11px;white-space:nowrap}
+  .add{color:#0F6E56}.chg{color:#854F0B}.rem{color:#993C1D}
+  .flowarrow{text-align:center;color:var(--faint);font-size:12px;padding:8px 0}
+  .mbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:6px 12px;border-radius:8px}
+  .mbtn.pri{background:var(--purple);color:#fff}
+  .mbtn.sec{border:0.5px solid var(--line);color:var(--muted)}
+  .mockcap{font-size:12px;color:var(--muted)}
+  .mockgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:680px){h1{font-size:34px}.reframe{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.mockgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Mermaid Chart · Plugins</div>
+    <h1>The bot rewrote your diagram.<br><span class="em">Do you trust it?</span></h1>
+    <p class="lede">The Mermaid Diagram Sync bot regenerates diagrams when code changes — silently, on every PR. This project gives developers a way to <b>review what the bot did</b>, inside the editor, without leaving the PR flow: acknowledge it, see the diff, accept or reject — one diagram or a whole branch at a time.</p>
+    <div class="chips">
+      <span class="chip live">Active — Slice 3 prototyping</span>
+      <span class="chip">VS Code extension</span>
+      <span class="chip">Build Jun18 v11 — slice3 review-sidebar</span>
+    </div>
+    <div class="byline">Product Designer — Ruben Mangorrinha · Mermaid Chart Plugins · Built on the Mermaid Chart VS Code extension. Living document, last updated 2026‑06‑19.</div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">Slices mapped</div><div class="v">10 <small>(0–7 + 2.A/2.6)</small></div></div>
+      <div class="stat"><div class="k">Shipped</div><div class="v">3 <small>slices 0–2</small></div></div>
+      <div class="stat"><div class="k">In flight</div><div class="v">Slice 3 <small>+ 2.A landing</small></div></div>
+      <div class="stat"><div class="k">Activation lever</div><div class="v">96% <small>never log in</small></div></div>
+    </div>
+
+    <div class="tldr">
+      <h3>For leadership · the 15-second version</h3>
+      <p style="margin:0;color:var(--ink)">Auto-generated diagrams are only trusted if they can be <b>reviewed like code</b>. We're building that review experience in vertical slices — each one shippable, each one validating the next.</p>
+      <div class="row"><b>What's live</b><span>Bot-edit signal, the "auto-regenerated" banner + tab dot, and the single-diagram visual diff with Accept / Reject / Edit. Slices 0–2, shipped.</span></div>
+      <div class="row"><b>The thesis</b><span>Gate the <i>aggregation and convenience</i>, never the <i>moment of value</i>. Per-diagram review is free and works logged-out; the multi-diagram cockpit and bulk accept sit behind login.</span></div>
+      <div class="row"><b>The call worth your attention</b><span>Login as an activation lever, not a paywall — 96% of activated users never log in, so the multi-diagram sidebar gives a concrete reason to create an account without gating review itself.</span></div>
+      <div class="row"><b>Adoption signal (new)</b><span>In-editor commands are thriving and the GitHub App regenerates ~4,000 diagrams/week — so review's low usage isn't an awareness gap, it's a workflow-location gap. See <a href="#adoption">§08</a>.</span></div>
+    </div>
+
+    <nav class="toc">
+      <ol>
+        <li><span class="n">01</span><a href="#problem">The problem</a></li>
+        <li><span class="n">02</span><a href="#why">Why we started</a></li>
+        <li><span class="n">03</span><a href="#thesis">The thesis & system</a></li>
+        <li><span class="n">04</span><a href="#roadmap">The slice roadmap</a></li>
+        <li><span class="n">05</span><a href="#surface">The review surface</a></li>
+        <li><span class="n">06</span><a href="#gate">The login gate (decision)</a></li>
+        <li><span class="n">07</span><a href="#evolution">Evolution & review rounds</a></li>
+        <li><span class="n">08</span><a href="#adoption">Adoption signal</a></li>
+        <li><span class="n">09</span><a href="#decisions">Key decisions</a></li>
+        <li><span class="n">10</span><a href="#open">Open questions</a></li>
+        <li><span class="n">11</span><a href="#shipped">Build state</a></li>
+        <li><span class="n">—</span><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="problem"><div class="wrap">
+  <div class="sec-no">01</div>
+  <h2>The problem</h2>
+  <p class="sec-sub">A trust gap, not a tooling gap.</p>
+  <p>Diagrams rot. Code moves on; the architecture diagram in the repo quietly stops being true. The Mermaid Diagram Sync bot (a GitHub App) fixes the rot by regenerating connected diagrams whenever the source they describe changes — automatically, on every PR.</p>
+  <p>But an automated edit you can't see is an automated edit you can't trust. When the bot rewrites a <code>.mmd</code> file, three things go wrong at once:</p>
+  <ul>
+    <li>The change is <b>invisible</b> — it lands as just another file in the diff, indistinguishable from a human edit.</li>
+    <li>The change is <b>unreviewable</b> — Mermaid re-lays-out on regeneration, so a one-node change can look like the whole diagram moved. A raw text diff reads as alarming noise.</li>
+    <li>In a real PR the bot touches <b>many diagrams at once</b> — so the developer would have to open each file one by one just to find what changed.</li>
+  </ul>
+  <div class="reframe">
+    <div class="old"><span>Old problem</span><b>"How do we keep diagrams in sync with code?"</b></div>
+    <div class="new"><span>Real problem</span><b>"How do we make a bot's edit trustworthy enough to accept?"</b></div>
+  </div>
+
+  <figure>
+    <pre class="mermaid">
+flowchart LR
+  C["Code changes"] --> B["Sync bot regenerates<br/>connected diagrams"]
+  B --> O["Silent commit<br/>(old world)"]
+  O --> X["Dev never reviews<br/>distrust + drift"]
+  B --> S["Bot-edit signal<br/>(this project)"]
+  S --> R["Review surface<br/>banner · diff · actions"]
+  R --> T["Accept / Reject / Edit<br/>trusted change"]
+  class X old
+  class S,R,T new
+  classDef old fill:#F1EFE8,stroke:#C3C8D4,color:#8A90A0;
+  classDef new fill:#FCE3F1,stroke:#E0218A,color:#9C1268;
+    </pre>
+    <figcaption><b>Fig. 1</b> — The trust gap. Without a review surface, a bot edit is just a silent commit nobody checks. The project's whole job is the lower path: make the edit visible, legible, and acceptable.</figcaption>
+  </figure>
+</div></section>
+
+<section id="why"><div class="wrap">
+  <div class="sec-no">02</div>
+  <h2>Why we started</h2>
+  <p class="sec-sub">The bot shipped first; the trust layer didn't.</p>
+  <p>The Mermaid Diagram Sync GitHub App can already keep diagrams current. What it can't do is make a developer <i>comfortable</i> with that. Auto-regeneration without review is the kind of feature people turn off — one surprising diff and the bot reads as "the thing that messes with my files."</p>
+  <p>So the bet is that the review experience, not the regeneration, is what makes the bot adoptable. If a developer can glance at what changed, understand it in seconds, and accept it with one click — inside VS Code, without context-switching to the PR — then automatic sync becomes a feature you leave on.</p>
+  <div class="call purple"><b>Framing.</b> This is a <i>trust interface</i> for an existing automation, not a new automation. Every slice is measured by one question: does it make the next bot edit easier to accept?</div>
+</div></section>
+
+<section id="thesis"><div class="wrap">
+  <div class="sec-no">03</div>
+  <h2>The thesis & system</h2>
+  <p class="sec-sub">Ship trust in vertical slices — each one usable, each one proving the next.</p>
+  <p>Rather than build the full "review cockpit" up front, the work is sliced so every increment is shippable on its own and earns the right to the next. Acknowledge a change before you diff it; diff one before you aggregate many; aggregate before you handle the hard edge cases.</p>
+  <h4>Two principles hold the roadmap together</h4>
+  <ul>
+    <li><b>Never gate the moment of value.</b> Reviewing a single bot edit is always free and works logged-out. Only the <i>aggregation and convenience</i> — the multi-diagram list and bulk accept — sit behind login.</li>
+    <li><b>Progressive disclosure.</b> The single review surface already tested as "heavy to use"; stacking many of them compounds it. Each slice has to reduce load, not add it.</li>
+  </ul>
+  <div class="call"><b>Login is an activation lever, not a paywall.</b> 96% of activated users never log in. The multi-diagram cockpit is a concrete reason to create an account — without ever paywalling the act of reviewing. A paid tier on top is a separate, later decision.</div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <div class="sec-no">04</div>
+  <h2>The slice roadmap</h2>
+  <p class="sec-sub">Ten slices, from "acknowledge it changed" to "fix it before the PR opens."</p>
+
+  <figure>
+    <pre class="mermaid">
+flowchart TD
+  SH["Shipped · slices 0–2"] --> A["Land Slice 2.A<br/>diff engine"]
+  A --> B["In-PR visual diff comment<br/>NEW · top priority"]
+  A --> S3["Slice 3 · review cockpit (gated)<br/>build as a bet · only login-gated surface"]
+  S3 --> S26["Slice 2.6 · shared component<br/>unblocked once Slice 3 ships"]
+  B --> C["Slice 6 · Config UX<br/>promoted · control plane"]
+  C --> AUTH["Author track<br/>Slice 7 · Slice 5 · create-on-commit NEW"]
+  S3 --> G{"Instrument the gate<br/>does it drive logins?"}
+  G -->|only on signal| S4["Slice 4 · heavy rename /<br/>restructure UI"]
+  class SH,A done
+  class B,C,S3 now
+  class AUTH,S26 auth
+  class S4 defer
+  classDef done fill:#E1F5EE,stroke:#1D9E75,color:#0F6E56,font-weight:600;
+  classDef now fill:#FCE3F1,stroke:#E0218A,color:#9C1268,font-weight:600;
+  classDef auth fill:#EDEBFB,stroke:#6D5BD0,color:#3F2F9C,font-weight:600;
+  classDef defer fill:#F1EFE8,stroke:#C3C8D4,color:#5F5E5A;
+    </pre>
+    <figcaption><b>Fig. 2</b> — The revised spine (June). Green is done/finishing, pink is active (incl. the gated cockpit, built as a deliberate bet), purple is the author track + the now-unblocked shared component, grey is the only piece still waiting for a signal (Slice 4's heavy UI). The new headline is the bot's PR comment; the cockpit continues as the activation lever. See <a href="#adoption">§08</a>.</figcaption>
+  </figure>
+
+  <p>Three slices shipped — acknowledge → diff → act. After the June analytics (<a href="#adoption">§08</a>), the plan was re-cut: the headline moves from a VS Code review cockpit to <b>the bot's PR comment</b>, and VS Code is re-aimed at the <i>author</i>, not the reviewer.</p>
+
+  <h4>Revised spine — build order</h4>
+  <ol style="font-size:15.5px;line-height:1.75;">
+    <li><b>Land Slice 2.A</b> — finish the diff engine that powers everything (already built).</li>
+    <li><b>In-PR visual diff comment (new)</b> — the bot posts a rendered before→after in its own PR comment. New top priority: cheapest, biggest reach, GitHub-native, and the one thing GitHub can't do itself.</li>
+    <li><b>Slice 6 — Config UX (promoted)</b> — the control plane for what the bot touches and what triggers creation.</li>
+    <li><b>Validation gate</b> — instrument and let engagement decide whether the heavy slices earn their weeks.</li>
+    <li><b>Author track</b> — Slice 7 (pre-emptive local sync) + Slice 5 (edit mode) + create-on-commit nudge (new): where the IDE genuinely wins.</li>
+    <li><b>Build the gated cockpit as a bet</b> — Slice 3 is the only login-gated surface (the activation lever) and is already in motion, so finish it ahead of the data and instrument it. Slice 2.6 (shared component) is unblocked once it ships. Only Slice 4's heavy rename/restructure UI still waits for a signal.</li>
+  </ol>
+
+  <div class="call purple"><b>Why we're building the cockpit ahead of the data.</b> We don't yet have data confirming demand for the review cockpit — and we're building Slice 3 anyway, deliberately. Its job is <i>activation</i>, not review volume: it's the only login-gated surface, a concrete reason to create an account, which matters because 96% of activated users never log in. It's also already in motion. And the new top-of-funnel work (in-PR diff, create-on-commit) plus the runaway creation commands should grow the user base and the GitHub App's reach — feeding the pool that could ever use review. That's the flywheel. The discipline that keeps it a <i>measured</i> bet, not a hope: instrument the gate for <b>logins driven</b> (not just reviews), and pair the cockpit with the in-PR diff so there's an actual path into it.</div>
+
+  <h4>What the new priorities look like</h4>
+
+  <figure>
+    <div class="mockcap" style="margin-bottom:6px;">Step 1 · the bot's PR comment carries the diff (new top priority)</div>
+    <div class="mock">
+      <div class="bar" style="color:var(--muted);"><span>⎇ Pull request #5642 · feature/pr-review</span></div>
+      <div style="padding:12px;">
+        <div style="font-size:13px;"><b style="font-weight:500;">Mermaid Diagram Sync</b> <span style="color:var(--faint);">· bot</span> — regenerated 3 diagrams from your code changes</div>
+        <div style="border:0.5px solid var(--line);border-radius:8px;font-family:var(--mono);font-size:11.5px;margin:10px 0;">
+          <div style="display:flex;justify-content:space-between;padding:6px 10px;border-bottom:0.5px solid var(--line);"><span>architecture.mmd</span><span><span class="add">+3</span> <span class="chg">~1</span></span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 10px;"><span>before → after preview</span><span style="color:var(--purple-deep);">▣ rendered</span></div>
+        </div>
+        <span class="mbtn pri">Review on web</span> <span class="mbtn sec">Open in VS Code</span>
+      </div>
+    </div>
+    <div class="flowarrow">↓ Step 2 · in-editor visibility (the CodeLens lesson)</div>
+    <div class="mock">
+      <div class="bar"><span>▣ architecture.mmd</span></div>
+      <div style="background:var(--purple-bg);padding:7px 12px;font-size:12px;color:var(--purple-deep);">This diagram was auto-regenerated by Mermaid Sync · commit a1b2c3</div>
+      <div style="padding:8px 12px;font-family:var(--mono);font-size:11.5px;">
+        <div style="color:var(--purple-deep);font-size:11px;padding-bottom:5px;">⟳ Review changes &nbsp; <span class="add">✓ Accept</span> &nbsp; <span class="rem">✕ Reject</span></div>
+        <div style="color:var(--faint);">flowchart TD</div>
+        <div style="color:var(--faint);padding-left:14px;">A --&gt; B[API gateway v2]</div>
+        <div style="background:#E1F5EE;color:#0F6E56;border-radius:3px;padding-left:14px;">B --&gt; C[Rate limiter] &nbsp;+ added</div>
+      </div>
+    </div>
+    <figcaption><b>Fig. 3</b> — Distribution flow. The bot's PR comment carries a rendered before→after where reviewers already are (Step 1); the in-editor banner + CodeLens give review the same visibility that drove the top features (Step 2). Web review is primary; the VS Code handoff is secondary.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="mockcap" style="margin-bottom:6px;">Create-on-commit · two quiet, dismissible offers (pull, not push)</div>
+    <div class="mockgrid">
+      <div class="mock">
+        <div class="bar"><span>TS&nbsp; router.ts</span></div>
+        <div style="padding:8px 12px;font-family:var(--mono);font-size:11.5px;">
+          <div style="color:var(--purple-deep);font-size:11px;padding-bottom:5px;">✦ Visualize these changes as a diagram &nbsp; <span style="color:var(--faint);">Dismiss</span></div>
+          <div style="color:var(--faint);">registerRoutes(app){</div>
+          <div style="background:#E1F5EE;color:#0F6E56;border-radius:3px;padding-left:12px;">app.use('/auth', authRouter) +new</div>
+          <div style="color:var(--faint);">}</div>
+        </div>
+      </div>
+      <div class="mock" style="padding:12px;">
+        <div style="font-size:12.5px;">New code in <span style="font-family:var(--mono);font-size:11.5px;">src/auth</span> has no diagram. Visualize it?</div>
+        <div style="margin-top:10px;"><span class="mbtn pri">Generate</span> <span class="mbtn sec">Not now</span></div>
+        <div style="font-size:11px;color:var(--faint);margin-top:10px;">⚙ what triggers this? · <span style="font-family:var(--mono);">.smart-mermaid-updates.yml</span></div>
+      </div>
+    </div>
+    <div class="flowarrow">↓ reuses the Generate-from-Code engine → draft (Save / Edit / Discard)</div>
+    <figcaption><b>Fig. 4</b> — Create-on-commit nudge (new, author track). Offered in-editor or as a dismissible notification, scoped by config, producing a reviewable draft — never an auto-committed file.</figcaption>
+  </figure>
+
+  <details class="acc"><summary>Original slice plan (for reference)</summary><div class="body">
+
+  <div class="slice">
+    <div class="head"><h3>Slice 0 — Foundation (bot-edit signal)</h3><span class="badge b-done">Done</span></div>
+    <div class="id">PLUG-70 · ~1 week, mostly coordination</div>
+    <p>The extension has to tell a bot edit from a human edit. Confirm the Sync Assistant emits a detectable signal — a commit-message trailer, a PR label, or a webhook event. Everything downstream depends on this.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 1 — Banner + tab indicator</h3><span class="badge b-done">Done</span></div>
+    <div class="id">PLUG-71 · ~2 weeks</div>
+    <p>Open a bot-edited <code>.mmd</code> and get a tinted banner — "This diagram was auto-regenerated in commit X" — plus a squared-dot indicator on the file tab. No diff, no actions; just <i>acknowledgment</i>. Enough to validate "do users notice and care?"</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 2 — Visual diff side-by-side</h3><span class="badge b-done">Done</span></div>
+    <div class="id">PLUG-72 · ~3 weeks</div>
+    <p>Source diff (left) + visual preview with the changed node highlighted (right). Accept / Reject / Edit wired to commit operations. <b>The slice that proves the thesis.</b></p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 2.A — Land enhanced diff UX on main</h3><span class="badge b-prog">Built · not landed</span></div>
+    <div class="id">PLUG-81 · ~1 week (QA + commit hygiene)</div>
+    <p>Ship the ~815 lines of diff-UX work so the <b>regenerate</b> and <b>remote-sync conflict</b> flows get the improved experience: AST summary banner, collapsible change list, click-to-focus, role-aware highlighting, graceful line-diff fallback for non-AST types. Does <i>not</i> touch PR Review's diff card.</p>
+    <p class="note">Status: built on <code>feature/pr-review</code>, not yet on <code>main</code> — see §10.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 2.6 — Extract shared diff component</h3><span class="badge b-todo">Not started</span></div>
+    <div class="id">PLUG-82 · ~2 weeks · Q3</div>
+    <p>Collapse the sync renderer and PR Review's LCS path into one shared module both consume. Refactor only — no visible change to PR Review. The right API shape is only clear once there are two real consumers, which is why it waits for Slice 3.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 3 — Multi-diagram PR support</h3><span class="badge b-prog">Prototyping</span></div>
+    <div class="id">PLUG-73 · ~2 weeks</div>
+    <p>A dedicated <b>Review Mermaid Sync</b> sidebar — a VS Code <code>TreeView</code> listing every <code>.mmd</code> the bot touched on the branch/PR, with per-row added/changed/removed stats. Click a row to open its Slice 2 surface; per-diagram reviewed state persists; <b>Accept all</b> resolves the set. The list + Accept all are login-gated; single-diagram review stays free.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 4 — Edge cases: removals, renames, restructures</h3><span class="badge b-todo">To do</span></div>
+    <div class="id">PLUG-74 · ~3 weeks incl. design rounds</div>
+    <p>The hard tail the diff can't yet express: settle list-only vs ghost for removals; detect a <i>rename</i> instead of "removed X + added Y" via similarity heuristics; read a pure re-layout as "looks different, barely changed." Highest design-to-engineering ratio in the roadmap.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 5 — Edit mode</h3><span class="badge b-todo">To do</span></div>
+    <div class="id">PLUG-75 · ~2 weeks · next quarter</div>
+    <p>"Edit" opens the bot's draft in the standard Mermaid editor with a persistent banner and a three-state model: Restore original / Cancel / Save.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 6 — Config file UX</h3><span class="badge b-todo">To do</span></div>
+    <div class="id">PLUG-76 · ~2 weeks · next quarter</div>
+    <p>Visualize and edit <code>.mermaidignore</code> and <code>.smart-mermaid-updates.yml</code> from inside the extension, so users can see and change what the bot updates instead of hand-editing YAML.</p>
+  </div>
+  <div class="slice">
+    <div class="head"><h3>Slice 7 — Pre-emptive local sync</h3><span class="badge b-todo">To do</span></div>
+    <div class="id">PLUG-77 · ~3–4 weeks · likely Q3</div>
+    <p>Run the regeneration logic locally so the dev sees the diagram update <i>while writing the PR</i>, not after — catching "the bot got it wrong" earlier. Natural home for the editor's live generation skeleton.</p>
+  </div>
+
+  </div></details>
+</div></section>
+
+<section id="surface"><div class="wrap">
+  <div class="sec-no">05</div>
+  <h2>The review surface</h2>
+  <p class="sec-sub">Two altitudes: one diagram, or the whole branch.</p>
+  <p>The experience has two levels that share one renderer. At ground level is the <b>single-diagram surface</b> (Slice 2): banner, source diff, visual preview with the change highlighted, and Accept / Reject / Edit. Above it is the <b>cockpit</b> (Slice 3): a sidebar that lists every bot-edited diagram so you never have to hunt through the Explorer.</p>
+  <figure>
+    <pre class="mermaid">
+flowchart TD
+  PR["PR with bot edits"] --> D{"How many<br/>diagrams?"}
+  D -->|one| SD["Single surface<br/>= Slice 2 exactly"]
+  D -->|many| AUTH{"Logged in?"}
+  AUTH -->|no| SI["Sign-in prompt<br/>in the list's place"]
+  AUTH -->|yes| LIST["Review Mermaid Sync sidebar<br/>rows + stats + Accept all"]
+  SI -->|"open one diagram"| SD
+  LIST -->|"click a row"| SD
+  class SD valu
+  class SI gate
+  classDef valu fill:#E1F5EE,stroke:#1D9E75,color:#0F6E56,font-weight:600;
+  classDef gate fill:#EDEBFB,stroke:#6D5BD0,color:#3F2F9C;
+    </pre>
+    <figcaption><b>Fig. 5</b> — Same pixels, two states. The single-diagram surface (green) is always reachable, logged in or out. The aggregated list is the login-gated convenience layer; logged-out users see a sign-in prompt where the list would be, but can still open any one diagram.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="mockgrid">
+      <div>
+        <div class="mockcap" style="margin-bottom:6px;color:var(--green);">signed in</div>
+        <div class="mock">
+          <div class="bar"><b style="font-weight:500;">Review Mermaid Sync</b><span style="color:var(--purple-deep);font-size:12px;">✓ Accept all</span></div>
+          <div class="row"><span style="color:var(--purple);">●</span><span style="flex:1;min-width:0;">architecture.mmd <span style="color:var(--faint);font-size:11px;">src/docs</span></span><span class="stat"><span class="add">+3</span> <span class="chg">~1</span></span></div>
+          <div class="row"><span style="color:var(--green);">✓</span><span style="flex:1;min-width:0;color:var(--muted);">auth-flow.mmd <span style="color:var(--faint);font-size:11px;">src/auth</span></span><span class="stat"><span class="add">+1</span> <span class="rem">−1</span></span></div>
+          <div class="row"><span style="color:var(--purple);">●</span><span style="flex:1;min-width:0;">data-model.mmd <span style="color:var(--faint);font-size:11px;">src/db</span></span><span class="stat"><span class="rem">−2</span></span></div>
+        </div>
+      </div>
+      <div>
+        <div class="mockcap" style="margin-bottom:6px;">signed out — same panel</div>
+        <div class="mock">
+          <div class="bar"><b style="font-weight:500;">Review Mermaid Sync</b><span style="color:var(--faint);font-size:12px;">Accept all</span></div>
+          <div style="padding:24px 16px;text-align:center;">
+            <div style="font-size:13px;font-weight:500;">Sign in to see every changed diagram</div>
+            <div style="font-size:12px;color:var(--muted);margin:6px 0 14px;line-height:1.5;">Reviewing one diagram is always free — open any bot-edited <span style="font-family:var(--mono);">.mmd</span> to review it. Sign in to unlock the list and Accept all.</div>
+            <span class="mbtn pri">Sign in</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption><b>Fig. 6</b> — The multi-diagram cockpit (Slice 3) — proceeding as the activation bet, since it's the only login-gated surface. Left: signed-in list with per-row added/changed/removed stats and reviewed (✓) vs unreviewed (●) marks. Right: the same panel signed out — a sign-in prompt where the list would be. The gate (right→left) is the lever we're instrumenting for logins.</figcaption>
+  </figure>
+</div></section>
+
+<section id="gate"><div class="wrap">
+  <div class="sec-no">06</div>
+  <h2>The login gate — decided</h2>
+  <p class="sec-sub">Gate the aggregation and the bulk action. Never the review itself.</p>
+  <p>The sharpest product decision in the project is <i>where</i> the login wall sits. The answer: the same gate the AI / Diagram Suggestions panel already uses, applied only to the multi-diagram list and Accept all.</p>
+  <table>
+    <tr><th>Capability</th><th>Logged out</th><th>Logged in</th></tr>
+    <tr><td>Open & review one bot-edited diagram (banner, diff, Accept/Reject/Edit)</td><td class="ok">✓ Free</td><td class="ok">✓</td></tr>
+    <tr><td>Multi-diagram "Review Mermaid Sync" list</td><td class="no">Sign-in prompt</td><td class="ok">✓</td></tr>
+    <tr><td>Accept all (bulk resolve)</td><td class="no">Locked</td><td class="ok">✓</td></tr>
+  </table>
+  <div class="call"><b>Why this shape.</b> The moment of value — actually reviewing a change — must never carry friction. But the cockpit is genuinely more valuable when you're triaging a big PR, which is exactly the moment a developer will trade an account for convenience. Login lift without a paywall.</div>
+  <div class="pov"><div class="who">Design note</div><p>"Same pixels, two states. The signed-out sidebar isn't empty or hidden — it shows a calm sign-in prompt exactly where the list would be, with the per-diagram path still open underneath. We sell the upgrade without blocking the work."</p></div>
+</div></section>
+
+<section id="evolution"><div class="wrap">
+  <div class="sec-no">07</div>
+  <h2>Evolution & review rounds</h2>
+  <p class="sec-sub">How the thinking moved — and where feedback overruled the first plan.</p>
+  <p>Short version: shipped 0–2, learned Slice 2 was "heavy to use," drafted the enhanced diff UX on a branch, borrowed the editor's node-highlight, and adopted Prashant's sidebar for Slice 3.</p>
+  <details class="acc"><summary>The full paper trail (7 rounds)</summary><div class="body">
+  <div class="timeline">
+    <div class="ev done"><div class="date">Slices 0–2</div><div class="t">Acknowledge → diff → act, shipped</div><p>Bot-edit signal, the auto-regenerated banner + tab dot, then the single-diagram visual diff with Accept / Reject / Edit. The thesis-proving sequence landed.</p></div>
+    <div class="ev"><div class="date">Slice 2 feedback</div><div class="t">"Heavy to use"</div><p>The single review surface tested as heavy. That soft-blocks Slice 3 — stacking N heavy surfaces compounds the load — and makes a progressive-disclosure pass a prerequisite, not a polish item.</p></div>
+    <div class="ev"><div class="date">Wilson feedback + mockup</div><div class="t">Removals: list, not ghosts</div><p>The original "ghost treatment" (a faded removed node drawn on the diagram) was dropped in favour of a removed-node list — ghosting on a re-laid-out diagram is unreliable. Carried into Slice 4 as the current lean.</p></div>
+    <div class="ev"><div class="date">feature/pr-review</div><div class="t">Enhanced diff UX drafted</div><p>~815 lines: AST summary banner, collapsible change list, click-to-focus, role-aware highlighting, line-diff fallback. The commit <code>cb03e18</code> ("visual diff preview, changes chrome, beside code panel") is the core of it. Built, not yet landed (§10).</p></div>
+    <div class="ev"><div class="date">From the editor team</div><div class="t">AI node highlight, reused</div><p>The unified editor's progressive-onboarding work produced a framework-agnostic node-highlight (outline a node's own shape in the brand gradient). It folds into the diff as a role-aware highlighter; the companion generation-skeleton is parked for Slice 7's local sync.</p></div>
+    <div class="ev"><div class="date">Slice 3 kickoff</div><div class="t">Prashant's sidebar proposal</div><p>A dedicated Review Mermaid Sync sidebar listing every bot-modified diagram, click-to-open, per-diagram review status, and an optional <code>git stash</code>-style aggregated view — placed like the Improve Diagram panel. Became the Slice 3 direction.</p></div>
+    <div class="ev"><div class="date">2026-06-18/19 · build</div><div class="t">Slice 3 prototyped in Cursor</div><p>Build marker now <code>build Jun18 v11 — slice3 review-sidebar</code>. The sidebar, <code>getBotEditedDiagrams.ts</code> detection, and the imported <code>ai-node-highlight/</code> are in the working tree — ahead of the 2.A landing and the 2.6 refactor.</p></div>
+  </div>
+  </div></details>
+</div></section>
+
+<section id="adoption"><div class="wrap">
+  <div class="sec-no">08</div>
+  <h2>Adoption signal</h2>
+  <p class="sec-sub">What 20 days of the new VS Code analytics actually say — Mixpanel, to 2026‑06‑19.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="k">In-editor commands · 20d</div><div class="v">82k+ <small>events</small></div></div>
+    <div class="stat"><div class="k">Generate-from-Code reach</div><div class="v">~45k <small>users</small></div></div>
+    <div class="stat"><div class="k">GitHub App regenerations · 60d</div><div class="v">~34k <small>~4k/wk</small></div></div>
+    <div class="stat"><div class="k">VS Code review · real users</div><div class="v">2 <small>internal-looking</small></div></div>
+  </div>
+
+  <div class="call"><b>The one-line read.</b> The zero-setup, in-editor commands are thriving, and the GitHub App is one of our most-used systems. The VS Code <i>review</i> experience is the only piece almost no real user has touched yet — and the reason isn't the one we assumed.</div>
+
+  <h4>What leadership should take away</h4>
+  <ul>
+    <li><b>In-editor visibility drives adoption.</b> The three runaway features — Generate from Code, Open Chat, Improve Diagram — are all zero-setup CodeLens actions surfaced in the document. Improve Diagram, four days old, is already at ~1,600 uses from 665 users and climbing daily.</li>
+    <li><b>"Users don't know about the GitHub App" does not hold.</b> The bot regenerates diagrams ~4,000 times a week in production. Awareness is high; promoting the workflow harder targets a gap that isn't there.</li>
+    <li><b>The gap is location, not awareness.</b> Thousands of bot edits happen in GitHub PRs, where developers already review and merge. The VS Code review surface asks them to go somewhere else to re-review. That friction — not awareness — is what's suppressing usage.</li>
+  </ul>
+
+  <div class="pov"><div class="who">The reframe</div><p>"We don't need blog posts about the GitHub App — people use it constantly. We need to meet the bot edits where they already are, and give review the same in-editor visibility that made the other commands take off."</p></div>
+
+  <details class="acc"><summary>The full numbers</summary><div class="body">
+    <table>
+      <tr><th>Feature / event</th><th>Events (20d)</th><th>Unique users</th><th>Note</th></tr>
+      <tr><td>Generate Diagram from Code</td><td>~45,300</td><td>~45,700</td><td>enormous reach, ~1 per user</td></tr>
+      <tr><td>Open Chat @mermaid-chart</td><td>37,224</td><td>19,572</td><td>repeat use (~1.9×)</td></tr>
+      <tr><td>AI Chat Generated Diagram</td><td>10,473</td><td>10,473</td><td>1 per user</td></tr>
+      <tr><td>Improve Diagram</td><td>1,598</td><td>665</td><td>live since Jun 15, ~2.4× repeat, climbing</td></tr>
+      <tr><td>Pre-commit Regenerate (VS Code)</td><td>13</td><td>7</td><td>negligible</td></tr>
+      <tr><td>Review Mermaid Sync (Triggered)</td><td>69</td><td class="no">2</td><td>essentially internal/testing</td></tr>
+      <tr><td>PR Review Bot Edit Detected</td><td>2</td><td>1</td><td>instrumented Jun 19</td></tr>
+      <tr><td><b>GitHub Regenerate (server-side bot)</b></td><td><b>~34,000 / 60d</b></td><td>—</td><td>~3,600–5,900 / week, steady</td></tr>
+    </table>
+  </div></details>
+
+  <details class="acc"><summary>Why the awareness hypothesis doesn't hold</summary><div class="body">
+    <p>If low review usage were an awareness problem, we'd expect the GitHub App itself to be under-used. The opposite is true: <code>GitHub Regenerate</code> fires ~3,600–5,900 times a week and has held that level for two months — one of the most-used systems we have. Developers clearly know the workflow and rely on it.</p>
+    <p>Yet <code>Review Mermaid Sync</code> shows just two distinct users. So the issue isn't that people haven't heard of the bot — it's that the bot's edits land in <b>GitHub PRs</b>, where review and merge already happen, while our review surface lives in <b>VS Code</b>, which asks for an extra trip. Promotion can't close a location gap.</p>
+  </div></details>
+
+  <details class="acc"><summary>What to do instead</summary><div class="body">
+    <ul>
+      <li><b>Route the existing regenerations into review.</b> A deep link from a bot-edited PR/commit straight into the VS Code review, instead of expecting users to find it.</li>
+      <li><b>Give review CodeLens-grade visibility.</b> Surface "this diagram was bot-regenerated — review it" in-editor on open. Slice 1's banner and Slice 3's sidebar already do exactly this — the roadmap addresses the real gap better than promo would.</li>
+      <li><b>Stand up the funnel before any spend.</b> <code>GitHub Regenerate</code> → file opened in VS Code → <code>Bot Edit Detected</code> → <code>Review Triggered</code> → <code>Accepted</code>. We can't justify promotion against a funnel we can't yet see.</li>
+      <li><b>Consider surfacing review where the edits live</b> (the GitHub PR), not only in VS Code.</li>
+    </ul>
+  </div></details>
+
+  <details class="acc"><summary>Data caveats — read before quoting</summary><div class="body">
+    <ul>
+      <li><code>GitHub Regenerate</code>'s "unique users" equals its total — a server-side identity quirk. Treat the total as the real signal, not reach.</li>
+      <li>The review events are days old and concentrated in 2 distinct IDs (likely internal). Not enough real-user data to conclude anything beyond "too early."</li>
+      <li><code>Bot Edit Detected</code> was instrumented on 2026‑06‑19 — its near-zero count partly reflects brand-new tracking, not just low use.</li>
+      <li>Improve Diagram has been live since Jun 15, not "yesterday." The combined headliner volume is ~82k events (Generate ~45k + Open Chat 37k), larger than the ~40k first cited.</li>
+    </ul>
+  </div></details>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+  <div class="sec-no">09</div>
+  <h2>Key decisions</h2>
+  <p class="sec-sub">What we chose, and why.</p>
+  <details class="acc"><summary>Five calls: working-tree scan · sidebar TreeView · batch accept, per-diagram reject · list (not ghost) · extract shared component after the 2nd consumer</summary><div class="body">
+  <h4>Detection = working-tree scan (default)</h4>
+  <p>Find bot-edited diagrams by scanning the branch's changed files for the bot trailer, rather than walking the full commit range. Simpler, holds the ~2-week estimate, and isolated behind one function so swapping to a commit-range walk later is a one-file change.</p>
+  <h4>A sidebar TreeView, not an editor-area list</h4>
+  <p>Per the mockup and Prashant's proposal, the cockpit is a dedicated VS Code <code>TreeView</code> placed like the Improve Diagram panel — not a tab in the editor area. The two are quite different to build; the sidebar won.</p>
+  <h4>Accept all is a batch; reject stays per-diagram</h4>
+  <p>"Accept all" resolves the listed set in one action. There is deliberately no "reject all" — rejecting is a per-diagram judgement, and a bulk reject is the kind of action people regret.</p>
+  <h4>Removals: list, not ghost</h4>
+  <p>Removed nodes are listed, not drawn as ghosts on a re-laid-out canvas. Reconcile to one treatment, not both (Slice 4).</p>
+  <h4>Extract the shared component only after the second consumer exists</h4>
+  <p>The shared diff renderer (2.6) waits for Slice 3. The right API shape is only knowable with two real consumers under real design pressure — doing it earlier means guessing.</p>
+  </div></details>
+</div></section>
+
+<section id="open"><div class="wrap">
+  <div class="sec-no">10</div>
+  <h2>Open questions</h2>
+  <p class="sec-sub">Still needs a call.</p>
+  <ul>
+    <li><b>Role-aware canvas colors.</b> The diff highlight currently uses one pink→purple gradient for every changed node, so added and changed look identical on the diagram — the list pills carry the role, the canvas doesn't. Folded into Slice 2.6, but the color language needs deciding.</li>
+    <li><b>Rename threshold.</b> How aggressive should rename heuristics be? A false "rename" is worse than a miss — needs tuning against real before/after examples (Slice 4).</li>
+    <li><b>Restructure detection.</b> Does it reuse the Slice 2 node diff or need a richer structural diff? Ties into the shared-component work.</li>
+    <li><b>Single-diagram fallback.</b> Confirm a one-diagram PR skips straight to the Slice 2 surface with zero list friction.</li>
+  </ul>
+</div></section>
+
+<section id="shipped"><div class="wrap">
+  <div class="sec-no">11</div>
+  <h2>Build state — what shipped & what's left</h2>
+  <p class="sec-sub">As of 2026-06-19, on <code>feature/pr-review</code>. The code has moved ahead of both engineering slices' "done" conditions.</p>
+
+  <h3>Shipped (slices 0–2)</h3>
+  <p>Bot-edit signal, the auto-regenerated banner + file-tab dot, and the single-diagram visual diff with Accept / Reject / Edit. These are the live, thesis-proving slices.</p>
+
+  <h3>Slice 2.A — built, not landed</h3>
+  <p>Every file the ticket expects is present and the behaviour is wired, but nothing is on <code>main</code> yet — so the landing condition isn't met. Remaining work is QA + commit hygiene + merge.</p>
+  <details class="acc"><summary>File-by-file landing status</summary><div class="body">
+  <table>
+    <tr><th>Item</th><th>State</th></tr>
+    <tr><td>Enhanced diff UX on <code>main</code></td><td class="no">✗ Still only on <code>feature/pr-review</code> — nothing landed</td></tr>
+    <tr><td><code>diagramDiffView.ts</code>, <code>diagramDiffHighlighter.ts</code> (in <code>src/commercial/sync/</code>)</td><td class="ok">✓ Present</td></tr>
+    <tr><td><code>App.svelte</code>, <code>extension.ts</code>, <code>remoteSyncHandler.ts</code>, <code>package.json</code></td><td class="ok">✓ Modified</td></tr>
+    <tr><td><code>openDiffDemo.ts</code> + <code>examples/diff-demo/</code></td><td class="ok">✓ Both exist</td></tr>
+    <tr><td>Remote-sync conflict flow on the new path</td><td class="ok">✓ <code>remoteSyncHandler.ts</code> imports <code>openDiagramDiffWebviews</code></td></tr>
+    <tr><td>PR Review deliberately untouched (still LCS path)</td><td class="ok">✓ <code>reviewSurfaceWebview.ts</code> still uses <code>computeLineDiff</code></td></tr>
+    <tr><td>Build marker = <code>build May28 v8 — sync-diff-ux</code></td><td class="no">✗ Bumped past it to <code>build Jun18 v11 — slice3 review-sidebar</code></td></tr>
+    <tr><td>Work squashed into reviewable commits</td><td class="no">✗ Still untracked/modified (<code>getBotEditedDiagrams.ts</code>, <code>ai-node-highlight/</code>, <code>diffTokens.ts</code>)</td></tr>
+    <tr><td>PR merged → PLUG-81 Done</td><td class="no">✗ Not yet</td></tr>
+  </table>
+  <p class="note">Net: exactly the "built but not landed" state the checklist predicted. Remaining work is QA + commit hygiene + getting it onto <code>main</code>.</p>
+  </div></details>
+
+  <h3>Slice 2.6 — not started</h3>
+  <p>The shared renderer hasn't been extracted; the two diff implementations still coexist.</p>
+  <details class="acc"><summary>What's still outstanding (and one flag)</summary><div class="body">
+  <ul>
+    <li>The enhanced renderer still lives only on the sync side (<code>diagramDiffView.ts</code> + <code>diagramDiffHighlighter.ts</code>).</li>
+    <li>PR Review is still on the old LCS path (<code>reviewSurfaceWebview.ts</code> → <code>computeLineDiff</code>, its own <code>.diff-card</code> / <code>.diff-row</code> CSS) — the migration requirement is untouched.</li>
+    <li>No shared module exists; both implementations coexist. Defining it, folding in role-aware canvas colors, wiring Slice 3, and deleting the dead LCS path are all outstanding.</li>
+  </ul>
+  <div class="call purple"><b>Flag.</b> <code>openDiffDemo</code> is registered in code (<code>mermaidChart.openDiffDemo</code>) but has no matching entry in <code>package.json</code> → <code>contributes.commands</code>. Fine if it's dev-only; needs adding if it should be palette-visible.</div>
+  </div></details>
+
+  <h3>What's left</h3>
+  <p>Slice 3 (finish + wire detection to real branch state), then the engineering track: land 2.A on <code>main</code>, then extract 2.6 (which clears the role-aware-color gap). Slices 4–7 follow.</p>
+</div></section>
+
+<footer><div class="wrap" id="sources">
+  <h2 style="font-size:20px">Sources & references</h2>
+  <p>Slice definitions and status trace to the PLUG project in Jira; build state from the working tree on <code>feature/pr-review</code>.</p>
+  <div class="src">
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-70">PLUG-70 · Slice 0</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-71">PLUG-71 · Slice 1</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-72">PLUG-72 · Slice 2</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-73">PLUG-73 · Slice 3</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-74">PLUG-74 · Slice 4</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-75">PLUG-75 · Slice 5</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-76">PLUG-76 · Slice 6</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-77">PLUG-77 · Slice 7</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-81">PLUG-81 · Slice 2.A</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-82">PLUG-82 · Slice 2.6</a>
+    <a href="https://eu.mixpanel.com/s/2kdDbP">Mixpanel · VS Code dashboard</a>
+  </div>
+  <p style="margin-top:24px;color:var(--faint)">Mermaid Sync — PR Review · Mermaid Chart Plugins<br>Product Designer — Ruben Mangorrinha<br>Living document · generated from the PLUG slice tickets + build state · last updated 2026‑06‑19.</p>
+</div></footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      fontFamily: '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif',
+      fontSize: '14px',
+      primaryColor: '#EDEBFB',
+      primaryBorderColor: '#6D5BD0',
+      primaryTextColor: '#16151D',
+      lineColor: '#9A9AA6',
+      tertiaryColor: '#FBFBFC'
+    },
+    flowchart: { curve: 'basis', useMaxWidth: true }
+  });
+</script>
+</body>
+</html>
