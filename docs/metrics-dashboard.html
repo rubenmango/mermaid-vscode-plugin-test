@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plugins Metrics — 2026-06-23</title>
+<title>Plugins Metrics — 2026-06-30</title>
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
@@ -59,31 +59,31 @@
 </head>
 <body>
   <h1>Plugins Metrics <span class="pill ok" style="font-size:10px;vertical-align:middle">✓ reconciled w/ org board · pull locked</span></h1>
-  <div class="sub">Trailing 7d <b>Jun 16–22</b> vs prior <b>Jun 9–15</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-06-23</div>
+  <div class="sub">Trailing 7d <b>Jun 23–29</b> vs prior <b>Jun 16–22</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-06-30</div>
 
   <div class="grid kpis">
     <div class="card">
       <div class="label">Git bot regenerations</div>
-      <div class="val">5,218</div>
-      <span class="delta up">▲ 5%</span>
-      <div class="cap">GitHub Regenerate Event</div>
+      <div class="val">6,538</div>
+      <span class="delta up">▲ 25%</span>
+      <div class="cap">GitHub Regenerate Event · new high</div>
     </div>
     <div class="card">
       <div class="label">VS Code · Generate from Code</div>
-      <div class="val">13,185</div>
-      <span class="delta down">▼ 18%</span>
-      <div class="cap">real trend now (3+ wks history)</div>
-    </div>
-    <div class="card">
-      <div class="label">VS Code · AI Chat diagrams</div>
-      <div class="val">2,400</div>
-      <span class="delta down">▼ 15%</span>
+      <div class="val">11,636</div>
+      <span class="delta down">▼ 12%</span>
       <div class="cap">2nd straight down week</div>
     </div>
     <div class="card">
+      <div class="label">VS Code · AI Chat diagrams</div>
+      <div class="val">1,927</div>
+      <span class="delta down">▼ 20%</span>
+      <div class="cap">3rd straight down week</div>
+    </div>
+    <div class="card">
       <div class="label">Review surface triggered</div>
-      <div class="val">52</div>
-      <span class="delta up">▲ from 4</span>
+      <div class="val">5</div>
+      <span class="delta down">▼ from 52</span>
       <div class="cap">Open Changes / Accept All / Reject All = 0 (90d)</div>
     </div>
   </div>
@@ -95,9 +95,8 @@
         <span class="n">165k</span>
         <span class="pill ok">stable · live event</span>
       </div>
-      <div class="cap">Weekly users · <code>VS Code Extension Activated</code> (latest full week Jun 15). April drop holds but no new move. Old <code>Activated</code> event stays deprecated.</div>
+      <div class="cap">Weekly users · <code>VS Code Extension Activated</code> (latest full week Jun 22 = 164,666). April drop holds but no new move. Old <code>Activated</code> event stays deprecated.</div>
       <div class="chart">
-        <div class="bar"><div class="b" style="height:100%"></div><div class="t">Mar30</div></div>
         <div class="bar"><div class="b" style="height:100%"></div><div class="t">Apr06</div></div>
         <div class="bar drop"><div class="b" style="height:55%"></div><div class="t">Apr13</div></div>
         <div class="bar drop"><div class="b" style="height:49%"></div><div class="t">Apr20</div></div>
@@ -109,15 +108,16 @@
         <div class="bar"><div class="b" style="height:48%"></div><div class="t">Jun01</div></div>
         <div class="bar"><div class="b" style="height:48%"></div><div class="t">Jun08</div></div>
         <div class="bar"><div class="b" style="height:46%"></div><div class="t">Jun15</div></div>
-        <div class="bar part"><div class="b" style="height:25%"></div><div class="t">Jun22*</div></div>
+        <div class="bar"><div class="b" style="height:46%"></div><div class="t">Jun22</div></div>
+        <div class="bar part"><div class="b" style="height:25%"></div><div class="t">Jun29*</div></div>
       </div>
-      <div class="ann">▼ Apr 6→27 drop (357k→161k) unrecovered but stable. *Jun 22 partial week.</div>
+      <div class="ann">▼ Apr 6→27 drop (357k→161k) unrecovered but stable. *Jun 29 partial week.</div>
     </div>
     <div class="card">
       <div class="label">Standing data points</div>
       <div class="chips" style="margin-top:12px">
-        <div class="chip"><div class="k">Install gate<small>165k activated · 1.8k login</small></div><span class="pill open">1.1% login</span></div>
-        <div class="chip"><div class="k">Login slide — NEW<small>2.7k→2.4k→1.8k, ~−33% 3wk</small></div><span class="pill open">WATCH</span></div>
+        <div class="chip"><div class="k">Install gate<small>165k activated · 1.6k login</small></div><span class="pill open">1.0% login</span></div>
+        <div class="chip"><div class="k">Login slide — 4th wk<small>2.4k→1.8k→1.6k, ~−35% 3wk</small></div><span class="pill open">WATCH</span></div>
         <div class="chip"><div class="k">April activation drop<small>−55%, stable, no recurrence</small></div><span class="pill open">OPEN</span></div>
         <div class="chip"><div class="k">pluginSource on paid<small>funnel unstitchable</small></div><span class="pill gap">missing</span></div>
       </div>
@@ -132,15 +132,16 @@
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Slice-3 gate</div><span class="pill gap" style="margin-top:8px;display:inline-block">missing</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">PR-review surface</div><span class="pill ok" style="margin-top:8px;display:inline-block">wired · low use</span></div>
   </div>
-  <div class="cap" style="margin-top:8px">First four blocked on PLUG-91 → diagram-creation by new features still unanswerable. PR-review surface barely fires: Bot Edit Detected 2 (30d). Pull still beats push (Pre-Commit Regenerate = 0). Review actions (Open Changes / Accept All / Reject All) = 0 over 90d — confirm wired.</div>
+  <div class="cap" style="margin-top:8px">First four blocked on PLUG-91 → diagram-creation by new features still unanswerable. PR-review surface barely fires: Bot Edit Detected 2 (30d). Pull still beats push (Pre-Commit Regenerate = 2 this week, still negligible). Review actions (Open Changes / Accept All / Reject All) = 0 over 90d — confirm wired.</div>
 
   <div class="section">Actions</div>
   <div class="actions">
-    <div class="act"><span>🔎</span><div><b>Investigate the login slide</b> (−33% over 3 weeks, 2.7k→1.8k/wk) — new this run. Activation is steady, so this is login/UX, not installs. Shrinks reach of every logged-in feature.</div></div>
+    <div class="act"><span>🔎</span><div><b>Login slide now 4 weeks running</b> (2.7k→2.4k→1.8k→1.6k, ~−40% over 4wk). Activation is steady, so this is login/UX, not installs. Shrinks reach of every logged-in feature — needs a root-cause look.</div></div>
+    <div class="act"><span>📉</span><div><b>VS Code creation softening:</b> Generate-from-Code ▼12% (2nd down wk), AI Chat ▼20% (3rd down wk). Git bot ▲25% to a new high offsets it — watch whether VS Code is a real slide or seasonal.</div></div>
+    <div class="act"><span>👀</span><div><b>Review funnel fell back:</b> triggers 52→5 and resolution events (Open Changes / Accept All / Reject All) still 0. Last week's spike didn't hold; confirm the action events are wired (PLUG-91).</div></div>
     <div class="act"><span>📊</span><div><b>PLUG-91:</b> land new-feature events + <code>pluginSource</code> on paid events (still missing).</div></div>
-    <div class="act"><span>👀</span><div><b>Review funnel:</b> triggers climbing (52), but Open Changes / Accept All / Reject All still 0 — watch whether resolutions ever register.</div></div>
   </div>
 
-  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702) — same activation/login events. Pull spec locked in plugins-metrics-staple.md §5 (identical every week). Prose backup: metrics-report-2026-06-23.md</div>
+  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702) — same activation/login events. Pull spec locked in plugins-metrics-staple.md §5 (identical every week). Prose backup: metrics-report-2026-06-30.md</div>
 </body>
 </html>
