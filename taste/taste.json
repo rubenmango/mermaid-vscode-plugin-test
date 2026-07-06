@@ -1,0 +1,26 @@
+{
+  "schema": "design-taste/v1",
+  "owner": "Ruben Mangorrinha",
+  "updated": "2026-07-06",
+  "use": "Point an AI or IDE at this file, or paste taste-card.md. Favor the principles; match the recurring tags; treat any 'rejection' entries as anti-patterns.",
+  "dimensions": ["color", "type", "spacing/density", "motion", "layout", "components", "tone"],
+  "summary": {
+    "counts": { "own": 9, "reference": 9 },
+    "top_tags": [
+      {"tag": "dark-ui", "count": 4}, {"tag": "wireframe", "count": 3}, {"tag": "workflow", "count": 3},
+      {"tag": "node-based", "count": 3}, {"tag": "editorial", "count": 3}, {"tag": "canvas", "count": 2},
+      {"tag": "layout", "count": 2}, {"tag": "ia", "count": 2}, {"tag": "onboarding", "count": 2},
+      {"tag": "editor", "count": 2}, {"tag": "ui", "count": 2}, {"tag": "diagram", "count": 2},
+      {"tag": "ai", "count": 2}, {"tag": "generation", "count": 2}
+    ],
+    "principles": [
+      {"title": "Square icon buttons as the default", "why": "Standardize button shapes/sizes to reduce visual clutter and improve hierarchy; square icon buttons chosen as the default for uniformity."},
+      {"title": "3-tier token architecture (primitive to semantic to component)", "why": "Automate styling and keep themes aligned; primitive tokens are temporary scaffolding while transitioning to semantic defaults. Taste = systematized, not hand-tuned per screen."},
+      {"title": "On-canvas animation as feedback, not decoration", "why": "Animate the specific node that changed and zoom to it when AI adds something. Motion earns its place only when it communicates what happened."},
+      {"title": "Mobile = clean view-only + AI chat, not a full editor", "why": "Two journeys: create-quickly-to-expose vs. see-quickly (Figma/Miro view mode). Don't over-build mobile editing; prioritize viewing + AI chat."},
+      {"title": "Reduce surface area, remove redundant UI", "why": "Remove obsolete controls; demote destructive/rare actions into menus. Fewer, clearer affordances over more."},
+      {"title": "Familiar mental models over novelty", "why": "Reach for patterns users already know (VS Code, Figma view mode, Miro, Claude memory) so the interface feels learnable rather than clever."}
+    ]
+  },
+  "entries": "See the full manifest for all 18 entries with tags, dimensions, rationale, origin and image. This published file carries the summary + principles; the complete entry list lives in the Design Taste library manifest."
+}
