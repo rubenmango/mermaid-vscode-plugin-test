@@ -58,9 +58,11 @@
   .sc .k{color:var(--faint);text-transform:uppercase;letter-spacing:.06em;font-size:9px;margin-bottom:3px}
   .sc .v{color:var(--txt);font-size:12px;line-height:1.45}
   .sc .hint{color:var(--faint);font-size:11.5px;line-height:1.5}
+  #hubnav{position:fixed;bottom:14px;left:14px;z-index:9999;font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:rgba(20,20,30,.85);color:#fff;padding:8px 13px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
 </style>
 </head>
 <body>
+<a id="hubnav" href="../index.html">← Hub</a>
 <div id="app">
   <header>
     <h1>User journey — a diagram's day across VS Code &amp; GitHub</h1>
@@ -105,7 +107,6 @@ const SVGNS='http://www.w3.org/2000/svg';let pinned=false,selId=null;
 function hexA(h,a){const n=parseInt(h.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
 const home={},pos={};NODES.forEach(function(n){const y=LANE[n.tool];home[n.id]={x:PX+n.c*COLW,y:y};pos[n.id]={x:home[n.id].x,y:y};});
 const W=PX*2+8*COLW+NW,H=560;
-// tool lanes
 [["VS Code",LANE.vscode-24,COL.vscode],["GitHub + Sync bot",LANE.github-24,COL.github]].forEach(function(l){const d=document.createElement('div');d.className='lane';d.style.left='10px';d.style.top=l[1]+'px';d.style.width=(W-20)+'px';d.style.height=(NH+48)+'px';d.style.background=hexA(l[2],.05);d.style.border='1px dashed '+hexA(l[2],.22);d.innerHTML='<span class="ll" style="color:'+hexA(l[2],.8)+'">'+l[0]+'</span>';stage.insertBefore(d,svg);});
 svg.insertAdjacentHTML('afterbegin','<defs>'+['vscode','github','decide'].map(function(k){return '<marker id="ar_'+k+'" markerWidth="7" markerHeight="7" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="'+COL[k]+'"/></marker>';}).join('')+'</defs>');
 const elMap={};
