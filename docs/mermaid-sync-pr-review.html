@@ -31,19 +31,16 @@
   .chip{font-size:13px;padding:5px 12px;border-radius:999px;background:var(--purple-bg);color:var(--purple-deep);font-weight:600}
   .chip.live{background:var(--pink-bg);color:var(--pink-deep)}
   .byline{font-size:14px;color:var(--faint);margin-top:18px}
-  /* stat band */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:34px 0}
   .stat{background:var(--card);padding:18px 20px}
   .stat .k{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:600}
   .stat .v{font-size:24px;font-weight:700;margin-top:4px;letter-spacing:-.01em}
   .stat .v small{font-size:14px;font-weight:500;color:var(--muted)}
-  /* leadership card */
   .tldr{background:var(--purple-bg);border-radius:var(--radius);padding:24px 26px;margin:34px 0}
   .tldr h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--purple-deep)}
   .tldr .row{margin-top:14px}
   .tldr .row b{display:block;font-size:14px;color:var(--purple-deep)}
   .tldr .row span{font-size:16px;color:var(--ink)}
-  /* toc */
   nav.toc{margin:30px 0;padding:20px 24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
   nav.toc ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 24px}
   nav.toc li{font-size:15px;color:var(--muted)}
@@ -65,7 +62,6 @@
   figure .mermaid{display:flex;justify-content:center}
   figcaption{font-size:14px;color:var(--muted);margin-top:10px;padding:0 6px 8px;font-style:italic}
   figcaption b{font-style:normal;color:var(--ink)}
-  /* slice cards */
   .slice{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:14px 0;background:var(--card)}
   .slice .head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
   .slice .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
@@ -77,7 +73,6 @@
   .b-todo{background:#F1EFE8;color:#5F5E5A}
   .slice p{margin:8px 0 0;font-size:15.5px;color:var(--ink)}
   .slice .note{font-size:13.5px;color:var(--muted);margin-top:8px}
-  /* callout */
   .call{border-left:3px solid var(--pink);background:var(--pink-bg);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin:22px 0}
   .call.purple{border-color:var(--purple);background:var(--purple-bg)}
   .call b{color:var(--pink-deep)} .call.purple b{color:var(--purple-deep)}
@@ -119,10 +114,13 @@
   .mbtn.sec{border:0.5px solid var(--line);color:var(--muted)}
   .mockcap{font-size:12px;color:var(--muted)}
   .mockgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  #hubnav{position:fixed;bottom:14px;left:14px;z-index:9999;font:600 12px/1 var(--sans);background:rgba(20,20,30,.85);color:#fff;padding:8px 13px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
+  #hubnav:hover{text-decoration:none}
   @media(max-width:680px){h1{font-size:34px}.reframe{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.mockgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<a id="hubnav" href="../index.html">← Hub</a>
 
 <header class="hero">
   <div class="wrap">
@@ -458,7 +456,6 @@ flowchart TD
     <div class="ev"><div class="date">feature/pr-review</div><div class="t">Enhanced diff UX drafted</div><p>~815 lines: AST summary banner, collapsible change list, click-to-focus, role-aware highlighting, line-diff fallback. The commit <code>cb03e18</code> ("visual diff preview, changes chrome, beside code panel") is the core of it. Built, not yet landed (§10).</p></div>
     <div class="ev"><div class="date">From the editor team</div><div class="t">AI node highlight, reused</div><p>The unified editor's progressive-onboarding work produced a framework-agnostic node-highlight (outline a node's own shape in the brand gradient). It folds into the diff as a role-aware highlighter; the companion generation-skeleton is parked for Slice 7's local sync.</p></div>
     <div class="ev"><div class="date">Slice 3 kickoff</div><div class="t">Prashant's sidebar proposal</div><p>A dedicated Review Mermaid Sync sidebar listing every bot-modified diagram, click-to-open, per-diagram review status, and an optional <code>git stash</code>-style aggregated view — placed like the Improve Diagram panel. Became the Slice 3 direction.</p></div>
-    <div class="ev"><div class="date">2026-06-18/19 · build</div><div class="t">Slice 3 prototyped in Cursor</div><p>Build marker now <code>build Jun18 v11 — slice3 review-sidebar</code>. The sidebar, <code>getBotEditedDiagrams.ts</code> detection, and the imported <code>ai-node-highlight/</code> are in the working tree — ahead of the 2.A landing and the 2.6 refactor.</p></div>
     <div class="ev done"><div class="date">2026-07 · shipped &amp; instrumentation</div><div class="t">Slice 3 shipped; PLUG-98 partly landed</div><p>Slice 3 (multi-diagram review) is shipped. Repair + cloud round-trip events shipped 2026-07-06 but read 0 after 3 days (wiring to verify); login-attribution UTM built with low coverage; prompt + monetization funnels + <code>pluginSource</code> pending. See <a href="metrics-dashboard.html">the dashboard</a>.</p></div>
   </div>
   </div></details>
