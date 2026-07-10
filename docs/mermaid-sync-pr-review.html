@@ -130,16 +130,16 @@
     <h1>The bot rewrote your diagram.<br><span class="em">Do you trust it?</span></h1>
     <p class="lede">The Mermaid Diagram Sync bot regenerates diagrams when code changes — silently, on every PR. This project gives developers a way to <b>review what the bot did</b>, inside the editor, without leaving the PR flow: acknowledge it, see the diff, accept or reject — one diagram or a whole branch at a time.</p>
     <div class="chips">
-      <span class="chip live">Active — Slice 3 prototyping</span>
+      <span class="chip live">Active — Slice 3 shipped · instrumentation in flight</span>
       <span class="chip">VS Code extension</span>
-      <span class="chip">Build Jun18 v11 — slice3 review-sidebar</span>
+      <span class="chip">Updated Jul 2026</span>
     </div>
-    <div class="byline">Product Designer — Ruben Mangorrinha · Mermaid Chart Plugins · Built on the Mermaid Chart VS Code extension. Living document, last updated 2026‑06‑19.</div>
+    <div class="byline">Product Designer — Ruben Mangorrinha · Mermaid Chart Plugins · Built on the Mermaid Chart VS Code extension. Living document, last updated 2026‑07‑10.</div>
 
     <div class="stats">
       <div class="stat"><div class="k">Slices mapped</div><div class="v">10 <small>(0–7 + 2.A/2.6)</small></div></div>
-      <div class="stat"><div class="k">Shipped</div><div class="v">3 <small>slices 0–2</small></div></div>
-      <div class="stat"><div class="k">In flight</div><div class="v">Slice 3 <small>+ 2.A landing</small></div></div>
+      <div class="stat"><div class="k">Shipped</div><div class="v">4 <small>slices 0–3</small></div></div>
+      <div class="stat"><div class="k">In flight</div><div class="v">Instrumentation <small>+ 2.A landing</small></div></div>
       <div class="stat"><div class="k">Activation lever</div><div class="v">96% <small>never log in</small></div></div>
     </div>
 
@@ -149,7 +149,8 @@
       <div class="row"><b>What's live</b><span>Bot-edit signal, the "auto-regenerated" banner + tab dot, and the single-diagram visual diff with Accept / Reject / Edit. Slices 0–2, shipped.</span></div>
       <div class="row"><b>The thesis</b><span>Gate the <i>aggregation and convenience</i>, never the <i>moment of value</i>. Per-diagram review is free and works logged-out; the multi-diagram cockpit and bulk accept sit behind login.</span></div>
       <div class="row"><b>The call worth your attention</b><span>Login as an activation lever, not a paywall — 96% of activated users never log in, so the multi-diagram sidebar gives a concrete reason to create an account without gating review itself.</span></div>
-      <div class="row"><b>Adoption signal (new)</b><span>In-editor commands are thriving and the GitHub App regenerates ~4,000 diagrams/week — so review's low usage isn't an awareness gap, it's a workflow-location gap. See <a href="#adoption">§08</a>.</span></div>
+      <div class="row"><b>Adoption signal</b><span>In-editor commands are thriving and the GitHub App now regenerates ~8,200 diagrams/week (a new high) — so review's low usage isn't an awareness gap, it's a workflow-location gap. See <a href="#adoption">§08</a>.</span></div>
+      <div class="row"><b>Latest · Jul 2026</b><span>Slice 3 (multi-diagram review) shipped. Instrumentation partly landed — Repair + cloud round-trip events shipped but reading 0 after 3 days (verify wiring); login-attribution (UTM) built but low coverage; prompt + monetization funnels + <code>pluginSource</code> still pending (PLUG-98). Live: <a href="metrics-dashboard.html">metrics dashboard</a> · flows: <a href="plugins-user-journey.html">User journey</a> &amp; <a href="plugins-feature-workflow.html">Feature workflow</a>.</span></div>
     </div>
 
     <nav class="toc">
@@ -351,7 +352,7 @@ flowchart TD
     <p>Collapse the sync renderer and PR Review's LCS path into one shared module both consume. Refactor only — no visible change to PR Review. The right API shape is only clear once there are two real consumers, which is why it waits for Slice 3.</p>
   </div>
   <div class="slice">
-    <div class="head"><h3>Slice 3 — Multi-diagram PR support</h3><span class="badge b-prog">Prototyping</span></div>
+    <div class="head"><h3>Slice 3 — Multi-diagram PR support</h3><span class="badge b-done">Shipped</span></div>
     <div class="id">PLUG-73 · ~2 weeks</div>
     <p>A dedicated <b>Review Mermaid Sync</b> sidebar — a VS Code <code>TreeView</code> listing every <code>.mmd</code> the bot touched on the branch/PR, with per-row added/changed/removed stats. Click a row to open its Slice 2 surface; per-diagram reviewed state persists; <b>Accept all</b> resolves the set. The list + Accept all are login-gated; single-diagram review stays free.</p>
   </div>
@@ -458,6 +459,7 @@ flowchart TD
     <div class="ev"><div class="date">From the editor team</div><div class="t">AI node highlight, reused</div><p>The unified editor's progressive-onboarding work produced a framework-agnostic node-highlight (outline a node's own shape in the brand gradient). It folds into the diff as a role-aware highlighter; the companion generation-skeleton is parked for Slice 7's local sync.</p></div>
     <div class="ev"><div class="date">Slice 3 kickoff</div><div class="t">Prashant's sidebar proposal</div><p>A dedicated Review Mermaid Sync sidebar listing every bot-modified diagram, click-to-open, per-diagram review status, and an optional <code>git stash</code>-style aggregated view — placed like the Improve Diagram panel. Became the Slice 3 direction.</p></div>
     <div class="ev"><div class="date">2026-06-18/19 · build</div><div class="t">Slice 3 prototyped in Cursor</div><p>Build marker now <code>build Jun18 v11 — slice3 review-sidebar</code>. The sidebar, <code>getBotEditedDiagrams.ts</code> detection, and the imported <code>ai-node-highlight/</code> are in the working tree — ahead of the 2.A landing and the 2.6 refactor.</p></div>
+    <div class="ev done"><div class="date">2026-07 · shipped &amp; instrumentation</div><div class="t">Slice 3 shipped; PLUG-98 partly landed</div><p>Slice 3 (multi-diagram review) is shipped. Repair + cloud round-trip events shipped 2026-07-06 but read 0 after 3 days (wiring to verify); login-attribution UTM built with low coverage; prompt + monetization funnels + <code>pluginSource</code> pending. See <a href="metrics-dashboard.html">the dashboard</a>.</p></div>
   </div>
   </div></details>
 </div></section>
@@ -470,7 +472,7 @@ flowchart TD
   <div class="stats">
     <div class="stat"><div class="k">In-editor commands · 20d</div><div class="v">82k+ <small>events</small></div></div>
     <div class="stat"><div class="k">Generate-from-Code reach</div><div class="v">~45k <small>users</small></div></div>
-    <div class="stat"><div class="k">GitHub App regenerations · 60d</div><div class="v">~34k <small>~4k/wk</small></div></div>
+    <div class="stat"><div class="k">GitHub App regenerations</div><div class="v">~8.2k <small>/wk · new high</small></div></div>
     <div class="stat"><div class="k">VS Code review · real users</div><div class="v">2 <small>internal-looking</small></div></div>
   </div>
 
@@ -479,7 +481,7 @@ flowchart TD
   <h4>What leadership should take away</h4>
   <ul>
     <li><b>In-editor visibility drives adoption.</b> The three runaway features — Generate from Code, Open Chat, Improve Diagram — are all zero-setup CodeLens actions surfaced in the document. Improve Diagram, four days old, is already at ~1,600 uses from 665 users and climbing daily.</li>
-    <li><b>"Users don't know about the GitHub App" does not hold.</b> The bot regenerates diagrams ~4,000 times a week in production. Awareness is high; promoting the workflow harder targets a gap that isn't there.</li>
+    <li><b>"Users don't know about the GitHub App" does not hold.</b> The bot regenerates diagrams ~8,200 times a week in production (a new high). Awareness is high; promoting the workflow harder targets a gap that isn't there.</li>
     <li><b>The gap is location, not awareness.</b> Thousands of bot edits happen in GitHub PRs, where developers already review and merge. The VS Code review surface asks them to go somewhere else to re-review. That friction — not awareness — is what's suppressing usage.</li>
   </ul>
 
@@ -495,12 +497,12 @@ flowchart TD
       <tr><td>Pre-commit Regenerate (VS Code)</td><td>13</td><td>7</td><td>negligible</td></tr>
       <tr><td>Review Mermaid Sync (Triggered)</td><td>69</td><td class="no">2</td><td>essentially internal/testing</td></tr>
       <tr><td>PR Review Bot Edit Detected</td><td>2</td><td>1</td><td>instrumented Jun 19</td></tr>
-      <tr><td><b>GitHub Regenerate (server-side bot)</b></td><td><b>~34,000 / 60d</b></td><td>—</td><td>~3,600–5,900 / week, steady</td></tr>
+      <tr><td><b>GitHub Regenerate (server-side bot)</b></td><td><b>~8,200 / week</b></td><td>—</td><td>climbed from ~4k → ~8.2k/wk, new high</td></tr>
     </table>
   </div></details>
 
   <details class="acc"><summary>Why the awareness hypothesis doesn't hold</summary><div class="body">
-    <p>If low review usage were an awareness problem, we'd expect the GitHub App itself to be under-used. The opposite is true: <code>GitHub Regenerate</code> fires ~3,600–5,900 times a week and has held that level for two months — one of the most-used systems we have. Developers clearly know the workflow and rely on it.</p>
+    <p>If low review usage were an awareness problem, we'd expect the GitHub App itself to be under-used. The opposite is true: <code>GitHub Regenerate</code> now fires ~8,200 times a week and has climbed steadily for months — one of the most-used systems we have. Developers clearly know the workflow and rely on it.</p>
     <p>Yet <code>Review Mermaid Sync</code> shows just two distinct users. So the issue isn't that people haven't heard of the bot — it's that the bot's edits land in <b>GitHub PRs</b>, where review and merge already happen, while our review surface lives in <b>VS Code</b>, which asks for an extra trip. Promotion can't close a location gap.</p>
   </div></details>
 
@@ -509,7 +511,7 @@ flowchart TD
       <li><b>Route the existing regenerations into review.</b> A deep link from a bot-edited PR/commit straight into the VS Code review, instead of expecting users to find it.</li>
       <li><b>Give review CodeLens-grade visibility.</b> Surface "this diagram was bot-regenerated — review it" in-editor on open. Slice 1's banner and Slice 3's sidebar already do exactly this — the roadmap addresses the real gap better than promo would.</li>
       <li><b>Stand up the funnel before any spend.</b> <code>GitHub Regenerate</code> → file opened in VS Code → <code>Bot Edit Detected</code> → <code>Review Triggered</code> → <code>Accepted</code>. We can't justify promotion against a funnel we can't yet see.</li>
-      <li><b>Consider surfacing review where the edits live</b> (the GitHub PR), not only in VS Code.</li>
+      <li><b>Consider surfacing review where the edits live</b> (the GitHub PR), not only in VS Code — now the top-priority in-PR diff comment.</li>
     </ul>
   </div></details>
 
@@ -546,6 +548,7 @@ flowchart TD
   <h2>Open questions</h2>
   <p class="sec-sub">Still needs a call.</p>
   <ul>
+    <li><b>Where does "Accept" happen — VS Code or GitHub?</b> With the in-PR diff comment now top priority, the accept action may belong on the PR itself, not only in the editor. Needs a call (see the <a href="plugins-user-journey.html">User journey</a> view).</li>
     <li><b>Role-aware canvas colors.</b> The diff highlight currently uses one pink→purple gradient for every changed node, so added and changed look identical on the diagram — the list pills carry the role, the canvas doesn't. Folded into Slice 2.6, but the color language needs deciding.</li>
     <li><b>Rename threshold.</b> How aggressive should rename heuristics be? A false "rename" is worse than a miss — needs tuning against real before/after examples (Slice 4).</li>
     <li><b>Restructure detection.</b> Does it reuse the Slice 2 node diff or need a richer structural diff? Ties into the shared-component work.</li>
@@ -556,10 +559,12 @@ flowchart TD
 <section id="shipped"><div class="wrap">
   <div class="sec-no">11</div>
   <h2>Build state — what shipped & what's left</h2>
-  <p class="sec-sub">As of 2026-06-19, on <code>feature/pr-review</code>. The code has moved ahead of both engineering slices' "done" conditions.</p>
+  <p class="sec-sub">As of 2026-07, on <code>feature/pr-review</code>. The code has moved ahead of both engineering slices' "done" conditions.</p>
 
-  <h3>Shipped (slices 0–2)</h3>
-  <p>Bot-edit signal, the auto-regenerated banner + file-tab dot, and the single-diagram visual diff with Accept / Reject / Edit. These are the live, thesis-proving slices.</p>
+  <h3>July 2026 update</h3>
+  <p><b>Slice 3 (multi-diagram review)</b> shipped — the "Review Mermaid Sync" sidebar that lists every bot-edited diagram on the branch, with Accept-all. <b>Instrumentation (PLUG-98):</b> Repair + cloud round-trip events (<code>VS_CODE_PLUGIN_REPAIR_DIAGRAM</code>, <code>…EDIT_DIAGRAM_IN_MERMAID_CHART</code>, <code>…EDIT_DIAGRAM_LOCALLY</code>, <code>…CONNECT_DIAGRAM</code>) shipped 2026-07-06 but still read <b>0 after 3 days</b> — likely a wiring/rollout issue to confirm, not adoption lag. Login-attribution exists on the OAuth login event (<code>utm_source=mermaid_chart_vs_code</code>, <code>utm_medium=vscode|vscode-insiders|windsurf</code>) but only ~2/90d carry the tag. The <b>login-prompt funnel</b>, <b>monetization funnel</b>, and <code>pluginSource</code> on paid are still pending (next release). Live metrics on the <a href="metrics-dashboard.html">plugins dashboard</a>; cross-tool flows in the <a href="plugins-user-journey.html">User journey</a> and <a href="plugins-feature-workflow.html">Feature workflow</a> views.</p>
+  <h3>Shipped (slices 0–3)</h3>
+  <p>Bot-edit signal, the auto-regenerated banner + file-tab dot, the single-diagram visual diff with Accept / Reject / Edit, and the multi-diagram Review Mermaid Sync sidebar (Slice 3). These are the live, thesis-proving slices.</p>
 
   <h3>Slice 2.A — built, not landed</h3>
   <p>Every file the ticket expects is present and the behaviour is wired, but nothing is on <code>main</code> yet — so the landing condition isn't met. Remaining work is QA + commit hygiene + merge.</p>
@@ -591,7 +596,7 @@ flowchart TD
   </div></details>
 
   <h3>What's left</h3>
-  <p>Slice 3 (finish + wire detection to real branch state), then the engineering track: land 2.A on <code>main</code>, then extract 2.6 (which clears the role-aware-color gap). Slices 4–7 follow.</p>
+  <p>Land 2.A on <code>main</code>, then extract 2.6 (which clears the role-aware-color gap). Then the instrumentation backlog (PLUG-98: verify shipped events fire, add the login-prompt + monetization funnels, <code>pluginSource</code> on paid). Slices 4–7 follow.</p>
 </div></section>
 
 <footer><div class="wrap" id="sources">
@@ -608,9 +613,11 @@ flowchart TD
     <a href="https://mermaidchart.atlassian.net/browse/PLUG-77">PLUG-77 · Slice 7</a>
     <a href="https://mermaidchart.atlassian.net/browse/PLUG-81">PLUG-81 · Slice 2.A</a>
     <a href="https://mermaidchart.atlassian.net/browse/PLUG-82">PLUG-82 · Slice 2.6</a>
+    <a href="https://mermaidchart.atlassian.net/browse/PLUG-98">PLUG-98 · Data trackers</a>
     <a href="https://eu.mixpanel.com/s/2kdDbP">Mixpanel · VS Code dashboard</a>
+    <a href="metrics-dashboard.html">Plugins metrics dashboard</a>
   </div>
-  <p style="margin-top:24px;color:var(--faint)">Mermaid Sync — PR Review · Mermaid Chart Plugins<br>Product Designer — Ruben Mangorrinha<br>Living document · generated from the PLUG slice tickets + build state · last updated 2026‑06‑19.</p>
+  <p style="margin-top:24px;color:var(--faint)">Mermaid Sync — PR Review · Mermaid Chart Plugins<br>Product Designer — Ruben Mangorrinha<br>Living document · generated from the PLUG slice tickets + build state · last updated 2026‑07‑10.</p>
 </div></footer>
 
 </main>
