@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User journey — a diagram's day across VS Code &amp; GitHub</title>
+<style>
+  :root{--bg:#080810;--canvas:#0b0b14;--node:#1a1a26;--line:rgba(255,255,255,.10);--txt:#e8e4dc;--muted:rgba(255,255,255,.55);--faint:rgba(255,255,255,.35);
+    --vscode:#4a9eea;--github:#ff5c8a;--decide:#e0b341;}
+  *{box-sizing:border-box}html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;overflow:hidden}
+  #app{display:flex;flex-direction:column;height:100vh}
+  header{padding:13px 18px 11px;border-bottom:1px solid var(--line)}
+  h1{font-size:15px;margin:0;font-weight:600}
+  .sub{font-size:11.5px;color:var(--muted);margin-top:3px;max-width:900px}
+  .legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:9px}
+  .lg{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--muted)}
+  .dot{width:9px;height:9px;border-radius:50%}
+  .ghost{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 11px;font-size:11px;cursor:pointer;margin-left:auto}
+  .ghost:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+  #body{flex:1;display:flex;min-height:0}
+  #viewport{flex:1;position:relative;overflow:hidden;background:var(--canvas);cursor:grab}
+  #viewport.grab{cursor:grabbing}
+  #stage{position:absolute;top:0;left:0;transform-origin:0 0}
+  svg#edges{position:absolute;top:0;left:0;overflow:visible;pointer-events:none}
+  .elabel{position:absolute;font-size:9px;color:var(--faint);background:var(--canvas);padding:1px 6px;border-radius:5px;white-space:nowrap;pointer-events:none;border:0.5px solid var(--line)}
+  .lane{position:absolute;border-radius:14px;pointer-events:none;z-index:0}
+  .lane .ll{position:absolute;top:8px;left:14px;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .nd{position:absolute;background:var(--node);border:0.5px solid var(--line);border-left:3px solid var(--c);border-radius:11px;padding:9px 12px 9px 10px;cursor:grab;
+    transition:opacity .2s,box-shadow .2s;width:200px;min-height:58px;display:flex;align-items:center;gap:9px;z-index:2}
+  .nd.dragging{cursor:grabbing;z-index:9}
+  .nd.sel{box-shadow:0 0 0 1px var(--c),0 6px 22px rgba(0,0,0,.5)}
+  .nd.decision{border-style:dashed}
+  .nd.terminal{border-radius:26px}
+  .step{position:absolute;top:-8px;left:-8px;width:18px;height:18px;border-radius:50%;background:var(--canvas);border:1px solid var(--c);color:var(--txt);font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;z-index:3}
+  .ic{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center}
+  .ic svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ic svg.fill{fill:#fff;stroke:none}
+  .nd .t{font-size:11.5px;font-weight:600;line-height:1.22}
+  .nd .m{font-size:9.5px;color:var(--muted);margin-top:2px}
+  .port{position:absolute;width:8px;height:8px;border-radius:50%;top:50%;transform:translateY(-50%);background:#252535;border:1.5px solid #12121e}
+  .port.i{left:-4px}.port.o{right:-4px}
+  .nd.sel .port{background:var(--c)}
+  #zoom{position:absolute;right:14px;bottom:14px;display:flex;gap:6px;align-items:center;background:rgba(8,8,16,.92);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 7px;backdrop-filter:blur(10px)}
+  #zoom button{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);cursor:pointer;font-size:13px}
+  #zoom button:hover{background:rgba(255,255,255,.16);color:#fff}
+  #zlvl{font-family:ui-monospace,monospace;font-size:10.5px;color:var(--muted);min-width:34px;text-align:center}
+  #side{width:310px;flex:none;border-left:1px solid var(--line);background:#101018;display:flex;flex-direction:column;transition:margin-right .25s}
+  #side.hidden{margin-right:-310px}
+  .sh{display:flex;align-items:center;gap:7px;padding:12px 13px;border-bottom:1px solid var(--line)}
+  .sh .d{width:11px;height:11px;border-radius:50%;flex:none}
+  .sh h2{font-size:12.5px;margin:0;font-weight:600;flex:1;line-height:1.2}
+  .sh button{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--muted);border-radius:7px;width:26px;height:26px;flex:none;cursor:pointer;font-size:12px}
+  .sh button.on{background:rgba(155,123,255,.2);color:#d4c5ff;border-color:rgba(155,123,255,.4)}
+  .sc{padding:13px 15px;overflow:auto;font-size:12px}
+  .sc .pill{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:999px;display:inline-block;margin-bottom:10px}
+  .sc .row{margin-top:12px}
+  .sc .k{color:var(--faint);text-transform:uppercase;letter-spacing:.06em;font-size:9px;margin-bottom:3px}
+  .sc .v{color:var(--txt);font-size:12px;line-height:1.45}
+  .sc .hint{color:var(--faint);font-size:11.5px;line-height:1.5}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>User journey — a diagram's day across VS Code &amp; GitHub</h1>
+    <div class="sub">One imagined path for a single diagram: generate in VS Code → push → the bot regenerates on the PR → review back in VS Code → accept → merge → view again. It's a loop — each code change starts it over. (Many other back-and-forths are possible; this is one representative path.) Click a step for detail · drag to rearrange · scroll to zoom.</div>
+    <div class="legend">
+      <span class="lg"><span class="dot" style="background:#4a9eea"></span>VS Code</span>
+      <span class="lg"><span class="dot" style="background:#ff5c8a"></span>GitHub (+ Sync bot)</span>
+      <span class="lg"><span class="dot" style="background:#e0b341"></span>Open question</span>
+      <span class="lg" style="color:var(--faint)">↺ dashed = loop / alternate path</span>
+      <button class="ghost" id="reset">Reset layout</button>
+    </div>
+  </header>
+  <div id="body">
+    <div id="viewport"><div id="stage"><svg id="edges"></svg></div>
+      <div id="zoom"><button id="zout">−</button><span id="zlvl">100%</span><button id="zin">+</button><button id="zfit" title="Fit">⊡</button></div>
+    </div>
+    <aside id="side" class="hidden">
+      <div class="sh"><span class="d" id="s-dot"></span><h2 id="s-title">Details</h2><button id="s-pin" title="Pin">📌</button><button id="s-close" title="Close">×</button></div>
+      <div class="sc" id="s-body"><span class="hint">Click any step to see what happens, which tool it lives in, and the hand-off to the next tool.</span></div>
+    </aside>
+  </div>
+</div>
+<script>
+const IC={code:'<svg viewBox="0 0 24 24"><path d="M8 7l-4 5 4 5M16 7l4 5-4 5"/></svg>',github:'<svg viewBox="0 0 24 24"><circle cx="7" cy="6" r="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="8" r="2"/><path d="M7 8v8M7 13h5a5 5 0 005-5"/></svg>',bot:'<svg viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9.5" cy="13" r="1"/><circle cx="14.5" cy="13" r="1"/><path d="M12 5v3M8.5 8V6.5M15.5 8V6.5"/></svg>',comment:'<svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 3V5z"/><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01"/></svg>',branch:'<svg viewBox="0 0 24 24"><circle cx="7" cy="6" r="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="9" r="2"/><path d="M7 8v8M7 13h5a5 5 0 005-4"/></svg>',diff:'<svg viewBox="0 0 24 24"><path d="M8 4v16M4 8h4M15 4v16M12 15h6M12 11h6"/></svg>',q:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 015 .2c0 1.8-2.5 1.8-2.5 3.6"/><path d="M12 16.5h.01"/></svg>',merge:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="15" r="2"/><path d="M6 8v8M6 9a6 6 0 006 6h4"/></svg>',eye:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/></svg>'};
+const COL={vscode:"#4a9eea",github:"#ff5c8a",decide:"#e0b341"};
+const NODES=[
+ {id:"gen",c:0,tool:"vscode",step:1,t:"Generate diagram from code",m:"VS Code",icon:"code",detail:"The dev edits code and generates (or updates) the .mmd diagram in the editor — the starting point. Free, in-editor."},
+ {id:"push",c:1,tool:"github",step:2,t:"Commit & push · open PR",m:"GitHub",icon:"github",detail:"The dev commits the code + diagram and opens a pull request. Hand-off #1: VS Code → GitHub."},
+ {id:"bot",c:2,tool:"github",step:3,t:"Bot regenerates the diagram",m:"GitHub · Sync bot",icon:"bot",detail:"The Mermaid Diagram Sync GitHub App detects the source change and regenerates the linked .mmd on the branch."},
+ {id:"comment",c:3,tool:"github",step:4,t:"Bot posts PR comment · Before→After",m:"GitHub",icon:"comment",detail:"The bot comments on the PR with a rendered Before → After and an 'Open the fuller review' link — everyone on the PR sees the change."},
+ {id:"open",c:4,tool:"vscode",step:5,t:"Open the fuller review in VS Code",m:"VS Code",icon:"branch",detail:"The dev clicks 'Open the fuller review' — deep-links back into VS Code, which flags the bot-edited files. Hand-off #2: GitHub → VS Code."},
+ {id:"review",c:5,tool:"vscode",step:6,t:"Review the diff · Accept / Reject",m:"VS Code",icon:"diff",detail:"Side-by-side diff of the regenerated diagram. The dev accepts or rejects. Reject loops back to editing the code / regenerating."},
+ {id:"acc",c:6,tool:"decide",step:0,t:"Accept — VS Code or GitHub?",m:"open question",icon:"q",detail:"OPEN QUESTION: does the dev accept inside VS Code (review surface) or approve on the GitHub PR? The accept action could live in either tool — this is the key back-and-forth to decide. Accepting syncs the change back onto the branch."},
+ {id:"merge",c:7,tool:"github",step:7,t:"Merge PR → main",m:"GitHub",icon:"merge",detail:"With the diagram accepted, the PR merges — code + up-to-date diagram land on main together. Hand-off #3: back to GitHub."},
+ {id:"view",c:8,tool:"vscode",step:8,t:"View updated diagram in VS Code",m:"VS Code",icon:"eye",terminal:1,detail:"The dev pulls main and previews the current diagram in the editor. The day closes — the next code change starts the loop again."}
+];
+const EDGES=[["gen","push"],["push","bot"],["bot","comment"],["comment","open","open fuller review"],["open","review"],["review","acc"],["acc","merge","accept → sync to branch"],["merge","view"],["view","gen","next code change",1],["review","gen","reject → edit & regen",1]];
+const COLW=250,NW=200,NH=62,PX=40,LANE={vscode:80,decide:250,github:420};
+const stage=document.getElementById('stage'),svg=document.getElementById('edges'),vp=document.getElementById('viewport');
+const side=document.getElementById('side'),sBody=document.getElementById('s-body'),sTitle=document.getElementById('s-title'),sDot=document.getElementById('s-dot'),sPin=document.getElementById('s-pin');
+const SVGNS='http://www.w3.org/2000/svg';let pinned=false,selId=null;
+function hexA(h,a){const n=parseInt(h.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+const home={},pos={};NODES.forEach(function(n){const y=LANE[n.tool];home[n.id]={x:PX+n.c*COLW,y:y};pos[n.id]={x:home[n.id].x,y:y};});
+const W=PX*2+8*COLW+NW,H=560;
+// tool lanes
+[["VS Code",LANE.vscode-24,COL.vscode],["GitHub + Sync bot",LANE.github-24,COL.github]].forEach(function(l){const d=document.createElement('div');d.className='lane';d.style.left='10px';d.style.top=l[1]+'px';d.style.width=(W-20)+'px';d.style.height=(NH+48)+'px';d.style.background=hexA(l[2],.05);d.style.border='1px dashed '+hexA(l[2],.22);d.innerHTML='<span class="ll" style="color:'+hexA(l[2],.8)+'">'+l[0]+'</span>';stage.insertBefore(d,svg);});
+svg.insertAdjacentHTML('afterbegin','<defs>'+['vscode','github','decide'].map(function(k){return '<marker id="ar_'+k+'" markerWidth="7" markerHeight="7" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="'+COL[k]+'"/></marker>';}).join('')+'</defs>');
+const elMap={};
+NODES.forEach(function(n){const d=document.createElement('div');d.className='nd'+(n.tool==='decide'?' decision':'')+(n.terminal?' terminal':'');
+ d.style.setProperty('--c',COL[n.tool]);d.style.left=pos[n.id].x+'px';d.style.top=pos[n.id].y+'px';
+ const stepHtml=n.step>0?'<span class="step">'+n.step+'</span>':'';
+ d.innerHTML=stepHtml+'<div class="ic" style="background:'+hexA(COL[n.tool],.16)+'">'+IC[n.icon]+'</div><div><div class="t">'+n.t+'</div><div class="m">'+n.m+'</div></div><span class="port i"></span><span class="port o"></span>';
+ stage.appendChild(d);elMap[n.id]=d;
+ d.addEventListener('pointerdown',function(e){e.stopPropagation();startDrag(n.id,e,d);});});
+function edgePath(a,b){const s=pos[a],t=pos[b];const x1=s.x+NW,y1=s.y+NH/2,x2=t.x,y2=t.y+NH/2;const dx=Math.max(40,Math.abs(x2-x1)*0.4);return 'M'+x1+','+y1+' C'+(x1+dx)+','+y1+' '+(x2-dx)+','+y2+' '+x2+','+y2;}
+const edgeEls=[],labelEls=[];
+EDGES.forEach(function(e){const p=document.createElementNS(SVGNS,'path');p.setAttribute('fill','none');const tool=NODES.find(function(x){return x.id===e[0];}).tool;p.dataset.a=e[0];p.dataset.b=e[1];p.dataset.loop=e[3]?1:0;
+ p.setAttribute('stroke',hexA(COL[tool],e[3]?.4:.6));p.setAttribute('stroke-width','1.6');p.setAttribute('marker-end','url(#ar_'+tool+')');if(e[3])p.setAttribute('stroke-dasharray','5 4');
+ svg.appendChild(p);edgeEls.push(p);
+ let lab=null;if(e[2]){lab=document.createElement('div');lab.className='elabel';lab.textContent=e[2];stage.appendChild(lab);}labelEls.push({el:lab,a:e[0],b:e[1]});});
+function redraw(){edgeEls.forEach(function(p){p.setAttribute('d',edgePath(p.dataset.a,p.dataset.b));});labelEls.forEach(function(L){if(!L.el)return;const s=pos[L.a],t=pos[L.b];L.el.style.left=((s.x+NW+t.x)/2-34)+'px';L.el.style.top=((s.y+t.y)/2+NH/2-8)+'px';});}
+svg.setAttribute('width',W);svg.setAttribute('height',H);stage.style.width=W+'px';stage.style.height=H+'px';redraw();
+let dragN=null;
+function startDrag(id,e,el){dragN={id,el,sx:e.clientX,sy:e.clientY,ox:pos[id].x,oy:pos[id].y,moved:false};el.classList.add('dragging');if(el.setPointerCapture)el.setPointerCapture(e.pointerId);}
+window.addEventListener('pointermove',function(e){if(!dragN)return;const dx=(e.clientX-dragN.sx)/scale,dy=(e.clientY-dragN.sy)/scale;if(Math.abs(dx)>3||Math.abs(dy)>3)dragN.moved=true;pos[dragN.id].x=dragN.ox+dx;pos[dragN.id].y=dragN.oy+dy;dragN.el.style.left=pos[dragN.id].x+'px';dragN.el.style.top=pos[dragN.id].y+'px';redraw();});
+window.addEventListener('pointerup',function(){if(dragN){dragN.el.classList.remove('dragging');if(!dragN.moved)select(dragN.id);dragN=null;}});
+document.getElementById('reset').onclick=function(){NODES.forEach(function(n){pos[n.id].x=home[n.id].x;pos[n.id].y=home[n.id].y;elMap[n.id].style.left=pos[n.id].x+'px';elMap[n.id].style.top=pos[n.id].y+'px';});redraw();};
+function select(id){selId=id;const n=NODES.find(function(x){return x.id===id;});Object.keys(elMap).forEach(function(k){elMap[k].classList.remove('sel');});elMap[id].classList.add('sel');
+ edgeEls.forEach(function(p){const on=p.dataset.a===id||p.dataset.b===id;p.setAttribute('stroke-width',on?'2.6':'1.6');p.style.opacity=on?1:.55;});
+ const toolLbl={vscode:"VS Code",github:"GitHub",decide:"Open question"}[n.tool];
+ sTitle.textContent=n.t;sDot.style.background=COL[n.tool];
+ sBody.innerHTML='<span class="pill" style="background:'+hexA(COL[n.tool],.16)+';color:'+COL[n.tool]+'">'+toolLbl+(n.step>0?' · step '+n.step:'')+'</span><div class="row"><div class="k">What happens</div><div class="v">'+n.detail+'</div></div>';
+ side.classList.remove('hidden');}
+sPin.onclick=function(){pinned=!pinned;sPin.classList.toggle('on',pinned);};
+document.getElementById('s-close').onclick=function(){side.classList.add('hidden');pinned=false;sPin.classList.remove('on');};
+vp.addEventListener('pointerdown',function(){if(!pinned)side.classList.add('hidden');});
+let scale=1,tx=0,ty=0;const zl=document.getElementById('zlvl');
+function apply(){stage.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';zl.textContent=Math.round(scale*100)+'%';}
+function fit(){const vw=vp.clientWidth,vh=vp.clientHeight;scale=Math.min(1,(vw-40)/W,(vh-40)/H);if(scale<.3)scale=.3;tx=(vw-W*scale)/2;ty=Math.max(16,(vh-H*scale)/2);apply();}
+document.getElementById('zin').onclick=function(){scale=Math.min(2.4,scale*1.15);apply();};
+document.getElementById('zout').onclick=function(){scale=Math.max(.3,scale/1.15);apply();};
+document.getElementById('zfit').onclick=fit;
+vp.addEventListener('wheel',function(e){e.preventDefault();const r=vp.getBoundingClientRect();const mx=e.clientX-r.left,my=e.clientY-r.top;const ns=Math.min(2.4,Math.max(.3,scale*(e.deltaY<0?1.1:1/1.1)));tx=mx-(mx-tx)*(ns/scale);ty=my-(my-ty)*(ns/scale);scale=ns;apply();},{passive:false});
+let pan=false,psx,psy;
+vp.addEventListener('pointerdown',function(e){pan=true;psx=e.clientX-tx;psy=e.clientY-ty;vp.classList.add('grab');});
+window.addEventListener('pointermove',function(e){if(!pan||dragN)return;tx=e.clientX-psx;ty=e.clientY-psy;apply();});
+window.addEventListener('pointerup',function(){pan=false;vp.classList.remove('grab');});
+fit();select('gen');
+</script>
+</body>
+</html>
