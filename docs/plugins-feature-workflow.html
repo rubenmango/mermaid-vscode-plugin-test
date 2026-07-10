@@ -245,7 +245,6 @@ vp.addEventListener('pointerdown',function(e){pan=true;psx=e.clientX-tx;psy=e.cl
 window.addEventListener('pointermove',function(e){if(!pan||dragN)return;tx=e.clientX-psx;ty=e.clientY-psy;apply();});
 window.addEventListener('pointerup',function(){pan=false;vp.classList.remove('grab');});
 fit();
-})();
 </script>
 </body>
 </html>
