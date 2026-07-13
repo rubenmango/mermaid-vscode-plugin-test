@@ -61,7 +61,7 @@
 <body>
   <a id="hubnav" href="../index.html">← Hub</a>
   <h1>Plugins Metrics <span class="pill ok" style="font-size:10px;vertical-align:middle">✓ reconciled w/ org board · pull locked</span></h1>
-  <div class="sub">Trailing 7d <b>Jul 6–12</b> vs prior <b>Jun 29–Jul 5</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-07-13</div>
+  <div class="sub">Trailing 7d <b>Jul 6–12</b> vs prior <b>Jun 29–Jul 5</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-07-13 (rev 2 — Q3 metrics + real event names)</div>
 
   <div class="grid kpis">
     <div class="card">
@@ -86,7 +86,23 @@
       <div class="label">Review surface triggered</div>
       <div class="val">0</div>
       <span class="delta down">▼ from 4</span>
-      <div class="cap">Accepted / Rejected / Closed never wired</div>
+      <div class="cap">action events (Open Changes / Accept All / Reject All) wired — last fired wk Jun 22, now dormant</div>
+    </div>
+  </div>
+
+  <div class="section">Q3 goal metrics — proposed (1 outcome · ≤3 metrics)</div>
+  <div class="cap" style="margin-top:-6px;margin-bottom:12px">Outcome: turn one-off diagram generation in VS Code into logged-in, recurring use.</div>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="card">
+      <div class="label">M1 · Login conversion <span class="pill open" style="margin-left:6px">headline</span></div>
+      <div class="val">0.88%</div>
+      <span class="delta down">▼ from ~1.4% (Jun)</span>
+      <div class="cap">% of activated users who log in (within 7d) · volume from <code>VS Code User Logged In</code> · the Q3 bet (PLUG-98) · target TBD w/ trio. Lever: Slice-3 gate + discoverability.</div>
+    </div>
+    <div class="card">
+      <div class="label">M2 · Return to create <span class="pill gap" style="margin-left:6px">provisional</span></div>
+      <div class="val">~15%</div>
+      <div class="cap">% of logged-in users who generate a diagram again within 7d (rough — small/noisy cohort: ~7% same-day settling ~3%/day). Instrument cleanly + set target by wk 3. "Keep them alive."</div>
     </div>
   </div>
 
@@ -136,29 +152,32 @@
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Slice-3 gate</div><span class="pill gap" style="margin-top:8px;display:inline-block">missing</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">PR-review surface</div><span class="pill ok" style="margin-top:8px;display:inline-block">wired · low use</span></div>
   </div>
-  <div class="cap" style="margin-top:8px">First four blocked on PLUG-91 → diagram-creation by new features still unanswerable (confirmed absent by name + substring). PR-review surface barely fires: Bot Edit Detected 2 (wk Jul 06). Review actions (Accepted / Rejected / Closed) return no data — never wired.</div>
+  <div class="cap" style="margin-top:8px">First four blocked on PLUG-91 → diagram-creation by these features still unanswerable (confirmed absent by name + substring). PR-review surface IS wired under different names: Banner Shown/Clicked + Review Open Changes / Accept All / Reject All all fire, but only sporadically (single digits, last real activity wk Jun 22). Bot Edit Detected 2 (wk Jul 06).</div>
 
-  <div class="section">Instrumentation watch — new trackers (PLUG-98)</div>
+  <div class="section">Cloud round-trip + repair — live & growing (PLUG-98)</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Repair Diagram<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">VS_CODE_PLUGIN_REPAIR_DIAGRAM</small></div><span class="pill open" style="margin-top:8px;display:inline-block">shipped · 0 @ 7 days</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Edit in Mermaid Chart (cloud push)<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">VS_CODE_PLUGIN_EDIT_DIAGRAM_IN_MERMAID_CHART</small></div><span class="pill open" style="margin-top:8px;display:inline-block">shipped · 0 @ 7 days</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Open / pull from cloud<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">VS_CODE_PLUGIN_EDIT_DIAGRAM_LOCALLY</small></div><span class="pill open" style="margin-top:8px;display:inline-block">shipped · 0 @ 7 days</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Link / connect<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">VS_CODE_PLUGIN_CONNECT_DIAGRAM</small></div><span class="pill open" style="margin-top:8px;display:inline-block">shipped · 0 @ 7 days</span></div>
+    <div class="card"><div class="label">Repair Diagram</div><div class="val">841</div><span class="delta up">▲ from 335</span><div class="cap"><code>VS Code Repair Diagram Invoked</code> · /wk · live ~Jun 29</div></div>
+    <div class="card"><div class="label">Connect to Mermaid Chart</div><div class="val">406</div><span class="delta up">▲ from 178</span><div class="cap"><code>VS Code Connect Diagram To Mermaid Chart</code> · /wk · live ~Jun 29</div></div>
+    <div class="card"><div class="label">Open / pull from cloud</div><div class="val">100</div><span class="delta up">▲ from 32</span><div class="cap"><code>VS Code Edit Diagram Locally</code> · /wk · live ~Jun 29</div></div>
+    <div class="card"><div class="label">Edit → push to cloud</div><div class="val">83</div><span class="delta up">▲ from 35</span><div class="cap"><code>VS Code Edit Diagram In Mermaid Chart</code> · /wk · live ~Jun 29</div></div>
   </div>
-  <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:12px">
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login attribution (UTM)<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">User Login: github/google · utm_source=mermaid_chart_vs_code · utm_medium=IDE</small></div><span class="pill gap" style="margin-top:8px;display:inline-block">built · low coverage</span></div>
+  <div class="cap" style="margin-top:8px"><b>Correction:</b> these read "0" before because the board queried placeholder names (<code>VS_CODE_PLUGIN_*</code>). Under their real event names all four fire and roughly doubled week-over-week (wk Jun 29 → wk Jul 6). Only ~2 full weeks of data — early, but real adoption.</div>
+
+  <div class="section">Instrumentation watch — login + monetization</div>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login attribution<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">Campaign User landing @server (global, ~344k/wk) · filter utm_source + current_path to isolate VS Code · redirect bug fixed Mar 4 (PR #5003)</small></div><span class="pill ok" style="margin-top:8px;display:inline-block">working · gap expected</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">pluginSource on paid<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">plugin→paid attribution</small></div><span class="pill open" style="margin-top:8px;display:inline-block">next release</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login prompt funnel<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">prompt shown → clicked → completed</small></div><span class="pill open" style="margin-top:8px;display:inline-block">next release</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Monetization funnel<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">limit → upgrade prompt → click</small></div><span class="pill open" style="margin-top:8px;display:inline-block">next release</span></div>
   </div>
-  <div class="cap" style="margin-top:8px"><b>⚠️ Escalate:</b> Repair + cloud round-trip events shipped 2026-07-06 but <b>still read 0 after 7 days</b> — almost certainly a wiring/rollout issue, not adoption lag. Confirm the new extension version actually reached users and the events fire (not just merged). <b>Login attribution</b> exists on the OAuth event but low coverage — use for attribution only, keep counting logins on <code>VS Code User Logged In</code>. <b>Prompt funnel + pluginSource-on-paid</b> land next release.</div>
+  <div class="cap" style="margin-top:8px"><b>Resolved:</b> the "0 events" scare was a wrong-name query, not a wiring bug — Repair + cloud round-trip are live and growing (see above). <b>Login attribution</b> (Prashant, Jul 13): the VS Code (<code>VS Code User Logged In</code>) vs collab (<code>Campaign User landing @server</code>) gap is expected — VS Code fires on every login incl. cached sessions; the campaign event only fires when the browser hits collab with UTMs. Rule stands: <b>volume from VS Code User Logged In, attribution from the campaign event — never sum them.</b> <b>pluginSource-on-paid</b> + prompt/monetization funnels land next release.</div>
 
   <div class="section">Actions</div>
   <div class="actions">
     <div class="act"><span>🔎</span><div><b>Login slide now 7 weeks running</b> (~2.7k→1.4k, ~−48%). Activation is steady (161k), so this is login/UX, not installs. Gate ratio down to 0.88% — shrinks reach of every logged-in feature. Needs an owner.</div></div>
     <div class="act"><span>📉</span><div><b>VS Code creation flat:</b> Generate-from-Code ▼2% (10,738), AI Chat ▼5% (1,800). Git bot ▲25% to a new high (10,234) keeps overall creation up.</div></div>
-    <div class="act"><span>🚩</span><div><b>Shipped events still 0 at 7 days</b> — escalate to Prashant: verify the release reached users and Repair/cloud events are wired, before relying on them for the Q3 measurement.</div></div>
-    <div class="act"><span>📊</span><div><b>PLUG-98:</b> land <code>pluginSource</code> on paid + login prompt / monetization funnel + fix UTM coverage on the OAuth URL — the Q3 measurement backbone.</div></div>
+    <div class="act"><span>✅</span><div><b>Cloud round-trip + repair are live and growing</b> — Repair 841/wk (▲ from 335), Connect 406 (▲ 178), pull 100 (▲ 32), push 83 (▲ 35). The "0 events" was a wrong event-name query, now fixed. Only ~2 weeks in, but this is the positive Q3 signal.</div></div>
+    <div class="act"><span>📊</span><div><b>PLUG-98:</b> land <code>pluginSource</code> on paid + login prompt / monetization funnel + Prashant's cleaner login events (next PR) — the Q3 measurement backbone.</div></div>
   </div>
 
   <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702) — same activation/login events. Pull spec locked in plugins-metrics-staple.md §5 (identical every week). Prose backup: metrics-report-2026-07-13.md</div>
