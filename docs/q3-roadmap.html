@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Q3 Plugins goals and roadmap — outcome, the three metrics, the GitHub App v2 review flow, and the phased roadmap. Mermaid Chart, 2026." />
+<title>Q3 Plugins — Goals &amp; Roadmap</title>
+<style>
+  :root{
+    --pink:#E0218A; --pink-deep:#9C1268; --pink-bg:#FCE3F1;
+    --purple:#6D5BD0; --purple-deep:#3F2F9C; --purple-bg:#EDEBFB;
+    --ink:#16151D; --muted:#6B6B78; --faint:#9A9AA6;
+    --line:#E7E7EC; --bg:#FBFBFC; --card:#FFFFFF;
+    --green:#1D9E75; --amber:#BA7517; --red:#D85A30;
+    --radius:14px; --maxw:920px;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+  a{color:var(--purple-deep);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);font-weight:600}
+  header.hero{padding:64px 0 32px;border-bottom:1px solid var(--line)}
+  h1{font-size:42px;line-height:1.1;font-weight:700;margin:14px 0 16px;letter-spacing:-.02em}
+  h1 .em{color:var(--pink)}
+  .lede{font-size:20px;color:var(--muted);max-width:680px;margin:0 0 20px}
+  .byline{font-size:14px;color:var(--faint)}
+  h2{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--purple-deep);margin:44px 0 14px}
+  section{padding-top:8px}
+  .callout{background:var(--purple-bg);border-radius:var(--radius);padding:20px 22px;margin:6px 0 8px}
+  .callout .k{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--purple-deep);font-weight:700}
+  .callout p{margin:8px 0 0;font-size:19px}
+  table{width:100%;border-collapse:collapse;margin:6px 0;font-size:15px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  td b{color:var(--ink)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-left:2px;vertical-align:middle}
+  .dot.r{background:var(--red)} .dot.a{background:var(--amber)} .dot.g{background:var(--green)}
+  .pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
+  .pill.head{background:var(--pink);color:#fff}
+  code{font-family:var(--mono);font-size:.88em;background:var(--purple-bg);padding:1px 6px;border-radius:5px;color:var(--purple-deep)}
+  .diagram{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:6px 0;overflow:auto;text-align:center}
+  .caption{font-size:13.5px;color:var(--muted);margin-top:10px}
+  .theme{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+  .theme span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+  ul{padding-left:20px} li{margin:6px 0}
+  footer{padding:30px 0 70px;color:var(--faint);font-size:13px;border-top:1px solid var(--line);margin-top:48px}
+  .backhub{display:inline-block;margin-top:8px;font-size:13px}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Mermaid Chart · Plugins</div>
+  <h1>Q3 — <span class="em">Goals &amp; Roadmap</span></h1>
+  <p class="lede">Turn one-off VS Code diagram generation into logged-in, recurring use. Login is the gate in front of every paid lever — Q3 attacks it at the moment of value and lands the measurement to prove it.</p>
+  <div class="byline">Product Designer — Ruben Mangorrinha · draft 2026‑07‑14 · for the EPD Product Strategy Review</div>
+</div></header>
+
+<main class="wrap">
+  <section>
+    <h2>Outcome</h2>
+    <div class="callout">
+      <div class="k">The bet</div>
+      <p>Turn one-off VS Code diagram generation into <b>logged-in, recurring use.</b></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Metrics — 1 headline + 2 supporting</h2>
+    <table>
+      <thead><tr><th>Metric</th><th>Definition</th><th>Baseline</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>M1</b> <span class="pill head">headline</span><br>Login conversion</td>
+          <td>% of activated VS Code users who log in</td>
+          <td><b>~0.88%</b><br><span style="color:var(--muted)">down from ~1.4% in June</span></td>
+          <td>~2% — trio sets <span class="dot r"></span></td>
+        </tr>
+        <tr>
+          <td><b>M2</b><br>Connect-to-cloud</td>
+          <td>% of logged-in users who round-trip a diagram to the cloud within 7 days</td>
+          <td><b>9%</b><br><span style="color:var(--muted)">268 of 2,970 logged-in</span></td>
+          <td>set once instrumented <span class="dot a"></span></td>
+        </tr>
+        <tr>
+          <td>Health / North Star</td>
+          <td>Creation volume (git-bot <b>10,234/wk</b>, ▲25%) · plugin→paid</td>
+          <td>—</td>
+          <td>plugin→paid = North Star, blocked on <code>pluginSource</code> <span class="dot g"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>The flow — GitHub App v2 → login → review → push</h2>
+    <div class="diagram">
+      <pre class="mermaid">
+flowchart TD
+  PR["Code change in PR"] --> Bot["Mermaid Sync bot posts<br/>before / after diagram comment"]
+  Bot --> Link["Review diagram change"]
+  Link --> Gate{"Signed in?"}
+  Gate -- "no" --> Login["Login gate:<br/>Sign in with GitHub"]:::m1
+  Gate -- "yes" --> Editor
+  Login --> Editor["Mermaid Chart editor · review mode"]
+  Editor --> BM["Build mode<br/>visual diff"]
+  Editor --> CM["Code mode<br/>.mmd diff"]
+  BM --> Act["Accept / Reject"]
+  CM --> Act
+  Act --> Push["Push approved change back to PR"]:::m2
+  Editor -. "free &gt; 3 diagrams" .-> Up["Upgrade prompt"]:::mon
+  classDef m1 fill:#7C4DFF,stroke:#3F2F9C,color:#fff;
+  classDef m2 fill:#1D9E75,stroke:#0e6b4d,color:#fff;
+  classDef mon fill:#BA7517,stroke:#7a4d0e,color:#fff;
+      </pre>
+    </div>
+    <div class="theme">
+      <span><span class="sw" style="background:#7C4DFF"></span> M1 · login conversion (value-moment login)</span>
+      <span><span class="sw" style="background:#1D9E75"></span> M2 · connect-to-cloud round-trip</span>
+      <span><span class="sw" style="background:#BA7517"></span> monetization moment</span>
+    </div>
+    <p class="caption">Playground removed — free users land in the editor; the 3-diagram limit is the in-editor upgrade moment. <a href="https://l.mermaid.ai/1qeJYn">Open / edit the diagram live →</a></p>
+  </section>
+
+  <section>
+    <h2>Roadmap — sequenced (~1 eng, no PM)</h2>
+    <table>
+      <thead><tr><th>Phase</th><th>Theme</th><th>Ships</th><th>Tickets / Slices</th><th>Moves</th></tr></thead>
+      <tbody>
+        <tr><td>Now</td><td><b>Measure first</b></td><td>Login funnel (prompt shown/clicked/completed), <code>pluginSource</code> on paid, monetization funnel</td><td>PLUG-98</td><td>enables all</td></tr>
+        <tr><td>Now → Next</td><td><b>Login lever</b><br><span style="color:var(--muted)">the bet</span></td><td>GitHub App v2 review flow → sign in with GitHub → editor (playground removed; &gt;3-diagram → upgrade)</td><td>PLUG-89 <span style="color:var(--muted)">(in review)</span></td><td><b>M1</b></td></tr>
+        <tr><td>Next</td><td><b>Round-trip</b><br><span style="color:var(--muted)">keep them alive</span></td><td>Connect / push / pull loop; multi-diagram review (login-gated) + shared diff component; P1 GitHub→Mermaid AI, P2 VS Code↔GitHub App</td><td>Slice 3 (PLUG-73), Slice 2.6 (PLUG-82)</td><td><b>M2</b></td></tr>
+        <tr><td>Next → Later</td><td><b>Expand reach</b></td><td>AI-skills: inject plugin skills into the user's AI harness to drive flow (plugin-scoped)</td><td>PLUG-90</td><td>creation / flow</td></tr>
+        <tr><td>Later (Q4)</td><td><b>Review depth</b></td><td>Removals/renames/restructures, edit mode, config-file UX, pre-emptive local sync</td><td>Slices 4–7</td><td>retention</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Monetization</h2>
+    <p>Plugin + review stay <b>free</b>. The <b>GitHub App</b> carries the org paywall (private repos, reviewers, audit). The <b>3-diagram limit</b> is the in-editor upgrade moment. Never gate the magic moment — gate the systems that scale it.</p>
+  </section>
+
+  <section>
+    <h2>Dependencies &amp; risks</h2>
+    <ul>
+      <li><b>Measurement (PLUG-98) gates the whole bet</b> — ship it with v2, not after.</li>
+      <li><b>~1 eng (Prashant), no Plugins PM</b> — themes run in sequence, not parallel.</li>
+      <li><b>OSS sensitivity</b> — keep the public-repo path generous; gate on private / org.</li>
+    </ul>
+  </section>
+
+  <a class="backhub" href="../index.html">← Back to the documentation hub</a>
+</main>
+
+<footer><div class="wrap">Q3 Plugins — Goals &amp; Roadmap · Mermaid Chart Plugins · hosted on GitHub Pages</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad:true, theme:'neutral', flowchart:{ htmlLabels:true } });</script>
+</body>
+</html>
