@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plugins Metrics — 2026-08-10</title>
+<title>Plugins Metrics — 2026-09-08</title>
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
@@ -38,7 +38,7 @@
   .pill.open{color:var(--bad);background:rgba(248,113,113,.12)}
   .pill.gap{color:var(--warn);background:rgba(251,191,36,.12)}
   .chart{margin-top:14px;display:flex;align-items:flex-end;gap:5px;height:120px}
-  .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+  .bar{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
   .bar .b{width:100%;border-radius:3px 3px 0 0;background:var(--info)}
   .bar.drop .b{background:var(--accent)}
   .bar.part .b{background:var(--faint);opacity:.6}
@@ -60,33 +60,33 @@
 </head>
 <body>
   <a id="hubnav" href="../index.html">← Hub</a>
-  <h1>Plugins Metrics <span class="pill ok" style="font-size:10px;vertical-align:middle">✓ PLUG-98 login/upgrade/repair live</span></h1>
-  <div class="sub">Trailing 7d <b>Aug 3–9</b> vs prior <b>Jul 27–Aug 2</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-08-10 (rev 7 — weekly refresh)</div>
+  <h1>Plugins Metrics <span class="pill ok" style="font-size:10px;vertical-align:middle">✓ PLUG-98 login/upgrade/repair live</span> <span class="pill gap" style="font-size:10px;vertical-align:middle">⟳ 4-wk catch-up</span></h1>
+  <div class="sub">Trailing 7d <b>Aug 31–Sep 6</b> vs prior <b>Aug 24–30</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-09-08 (rev 8 — weekly refresh · first since Aug 10)</div>
 
   <div class="grid kpis">
     <div class="card">
       <div class="label">Git bot regenerations</div>
-      <div class="val">16,617</div>
-      <span class="delta up">▲ 12.9%</span>
-      <div class="cap">GitHub Regenerate Event · strongest source, up a 2nd week</div>
+      <div class="val">25,132</div>
+      <span class="delta up">▲ 0.4%</span>
+      <div class="cap">GitHub Regenerate Event · step change mid-Aug: 15.1k→21.8k→25.0k→25.1k · <b>+51%</b> vs last published wk (16.6k) · held 2 weeks</div>
     </div>
     <div class="card">
       <div class="label">VS Code · Generate from Code</div>
-      <div class="val">10,253</div>
-      <span class="delta up">▲ 16.4%</span>
-      <div class="cap">rebound · up from 8,806</div>
+      <div class="val">7,755</div>
+      <span class="delta down">▼ 15.0%</span>
+      <div class="cap">4th straight decline · 10.3k→9.9k→9.5k→9.1k→7.8k · lowest since the pull began</div>
     </div>
     <div class="card">
       <div class="label">VS Code · AI Chat diagrams</div>
-      <div class="val">2,371</div>
-      <span class="delta up">▲ 63.5%</span>
-      <div class="cap">biggest mover this week · up from 1,450</div>
+      <div class="val">1,365</div>
+      <span class="delta down">▼ 23.9%</span>
+      <div class="cap">gave back the Aug 3 spike · 2.4k→2.0k→1.7k→1.8k→1.4k · below Jul 27 (1,450)</div>
     </div>
     <div class="card">
-      <div class="label">Review surface triggered</div>
-      <div class="val">3</div>
-      <span class="delta flat">— 0 actions</span>
-      <div class="cap">Sync App Review Triggered = 3 (first non-zero in weeks) · 0 accepted/rejected/closed · still effectively unused (PLUG-91)</div>
+      <div class="label">Review UI opened</div>
+      <div class="val">6</div>
+      <span class="delta down">▼ from 10</span>
+      <div class="cap"><code>VS Code Open Review UI</code> = 6 · Accept 0 · Reject 0 · Commit 3 · no accept/reject since wk Aug 10 · still effectively unused (PLUG-91)</div>
     </div>
   </div>
 
@@ -94,27 +94,27 @@
   <div class="cap" style="margin-top:-6px;margin-bottom:12px">Outcome: turn one-off diagram generation in VS Code into logged-in, recurring use.</div>
   <div class="grid" style="grid-template-columns:repeat(2,1fr)">
     <div class="card">
-      <div class="label">M1 · Login conversion <span class="pill open" style="margin-left:6px">headline</span></div>
-      <div class="val">0.71%</div>
-      <span class="delta down">▼ from 0.73% (last wk)</span>
-      <div class="cap">% of activated users who log in · <code>VS Code User Logged In</code> = 1,102 (wk Aug 3). Cleaner signal now: Sign-In <b>Completed</b> = 1,157/wk via the live PLUG-98 funnel (below). Slide continues.</div>
+      <div class="label">M1 · Login conversion <span class="pill open" style="margin-left:6px">headline · new low</span></div>
+      <div class="val">0.56%</div>
+      <span class="delta down">▼ from 0.67% (last wk)</span>
+      <div class="cap">% of activated users who log in · <code>VS Code User Logged In</code> = 871 unique (wk Aug 31) · 4-wk path 1,102→1,089→1,134→1,041→871. Sign-In <b>Completed</b> = 915/wk agrees. Slide continues, steeper.</div>
     </div>
     <div class="card">
-      <div class="label">M2 · Connect to cloud <span class="pill ok" style="margin-left:6px">▲ recovering</span></div>
-      <div class="val">348</div>
-      <span class="delta up">▲ from 336</span>
-      <div class="cap">Connect-to-cloud actions / wk · <code>VS Code Connect Diagram To Mermaid Chart</code> · +3.6% WoW · the "keep them alive" round-trip action.</div>
+      <div class="label">M2 · Connect to cloud <span class="pill open" style="margin-left:6px">▼ dropped</span></div>
+      <div class="val">258</div>
+      <span class="delta down">▼ from 370</span>
+      <div class="cap">Connect-to-cloud actions / wk · <code>VS Code Connect Diagram To Mermaid Chart</code> · <b>−30.3% WoW</b> · first week under 300 · Aug 24 (370) was the high.</div>
     </div>
   </div>
 
-  <div class="section">Activation health — stable, no recurrence</div>
+  <div class="section">Activation health — flat, no move</div>
   <div class="grid two">
     <div class="card">
       <div class="bigstat">
-        <span class="n">154k</span>
+        <span class="n">155k</span>
         <span class="pill ok">stable · live event</span>
       </div>
-      <div class="cap">Weekly users · <code>VS Code Extension Activated</code> (latest full week Aug 3 = 154,337). April drop holds but no new move; slow bleed from ~172k in May, −1% WoW. Old <code>Activated</code> event stays deprecated.</div>
+      <div class="cap">Weekly users · <code>VS Code Extension Activated</code> (latest full week Aug 31 = 155,214). Four catch-up weeks all land 152–156k; the May→Aug bleed has flattened (−0.5% WoW). April drop holds. Old <code>Activated</code> event stays deprecated.</div>
       <div class="chart">
         <div class="bar"><div class="b" style="height:100%"></div><div class="t">Apr06</div></div>
         <div class="bar drop"><div class="b" style="height:55%"></div><div class="t">Apr13</div></div>
@@ -134,16 +134,20 @@
         <div class="bar"><div class="b" style="height:44%"></div><div class="t">Jul20</div></div>
         <div class="bar"><div class="b" style="height:44%"></div><div class="t">Jul27</div></div>
         <div class="bar"><div class="b" style="height:43%"></div><div class="t">Aug03</div></div>
-        <div class="bar part"><div class="b" style="height:6%"></div><div class="t">Aug10*</div></div>
+        <div class="bar"><div class="b" style="height:43%"></div><div class="t">Aug10</div></div>
+        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Aug17</div></div>
+        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Aug24</div></div>
+        <div class="bar"><div class="b" style="height:43%"></div><div class="t">Aug31</div></div>
+        <div class="bar part"><div class="b" style="height:8%"></div><div class="t">Sep07*</div></div>
       </div>
-      <div class="ann">▼ Apr 6→27 drop (357k→161k) unrecovered but stable. *Aug 10 partial week.</div>
+      <div class="ann">▼ Apr 6→27 drop (357k→161k) unrecovered but stable. *Sep 7 partial week.</div>
     </div>
     <div class="card">
       <div class="label">Standing data points</div>
       <div class="chips" style="margin-top:12px">
-        <div class="chip"><div class="k">Install gate<small>154k activated · 1.1k login</small></div><span class="pill open">0.71% login</span></div>
-        <div class="chip"><div class="k">Login slide — ~11th wk<small>2.9k→…→1.13k→1.10k, ~−63%</small></div><span class="pill open">WATCH</span></div>
-        <div class="chip"><div class="k">AI silent-fail — measured, rising<small>27.5% repair failure (224/814, 7d) · was 22.1%</small></div><span class="pill open">▲ WATCH</span></div>
+        <div class="chip"><div class="k">Install gate<small>155k activated · 0.87k login</small></div><span class="pill open">0.56% login</span></div>
+        <div class="chip"><div class="k">Login slide — ~15th wk<small>2.9k→…→1.04k→0.87k, ~−70%</small></div><span class="pill open">WATCH</span></div>
+        <div class="chip"><div class="k">AI silent-fail — measured, back up<small>22.3% repair failure (155/695, 7d) · was 19.0%</small></div><span class="pill open">▲ WATCH</span></div>
         <div class="chip"><div class="k">pluginSource on paid<small>funnel still unstitchable</small></div><span class="pill gap">missing</span></div>
       </div>
     </div>
@@ -155,36 +159,37 @@
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Commit Nudge</div><span class="pill gap" style="margin-top:8px;display:inline-block">missing</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Local Sync</div><span class="pill gap" style="margin-top:8px;display:inline-block">missing</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Slice-3 gate</div><span class="pill ok" style="margin-top:8px;display:inline-block">live · Sign-In funnel</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">PR-review surface</div><span class="pill gap" style="margin-top:8px;display:inline-block">3 triggered · 0 actions</span></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">PR-review surface</div><span class="pill gap" style="margin-top:8px;display:inline-block">6 opened · 3 commits · 0 accept/reject</span></div>
   </div>
-  <div class="cap" style="margin-top:8px">First three still blocked on PLUG-91 → diagram-creation by those features still unanswerable. The Slice-3 login gate is covered by the live <code>VS Code Sign-In *</code> funnel (breakdown by <code>trigger</code> shows which surface drives login). Mermaid Sync App Review fired 3 Triggered this week but 0 Accepted/Rejected/Closed — surface still effectively unused.</div>
+  <div class="cap" style="margin-top:8px">First three still blocked on PLUG-91 → diagram-creation by those features still unanswerable. The Slice-3 login gate is covered by the live <code>VS Code Sign-In *</code> funnel. <b>Review-surface events re-mapped this run:</b> the spec's <code>Sync App Review Triggered</code> is not an event in project 2954792; the pull now reads <code>VS Code Open Review UI</code> (opened) and <code>VS Code App Review Accept / Reject / Commit</code> (actions). Accept and Reject last fired in wk Aug 10 (6 / 4); Commit trickles at 3–4/wk.</div>
 
   <div class="section">Cloud round-trip + repair (PLUG-98)</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card"><div class="label">Repair · fail rate</div><div class="val">27.5%</div><span class="delta down">▲ from 22.1%</span><div class="cap">224 failed / 814 (7d) · <code>VS Code Repair Diagram</code> <code>status</code> field · rising</div></div>
-    <div class="card"><div class="label">Connect to Mermaid Chart</div><div class="val">348</div><span class="delta up">▲ from 336</span><div class="cap"><code>VS Code Connect Diagram To Mermaid Chart</code> · /wk · +3.6%</div></div>
-    <div class="card"><div class="label">Open / pull from cloud</div><div class="val">78</div><span class="delta up">▲ from 72</span><div class="cap"><code>VS Code Edit Diagram Locally</code> · /wk · +8.3%</div></div>
-    <div class="card"><div class="label">Edit → push to cloud</div><div class="val">62</div><span class="delta up">▲ from 59</span><div class="cap"><code>VS Code Edit Diagram In Mermaid Chart</code> · /wk · +5.1%</div></div>
+    <div class="card"><div class="label">Repair · fail rate</div><div class="val">22.3%</div><span class="delta down">▲ from 19.0%</span><div class="cap">155 failed / 695 (7d) · <code>VS Code Repair Diagram</code> <code>status</code> field · 27.5%→26.3%→22.8%→19.0%→22.3%</div></div>
+    <div class="card"><div class="label">Connect to Mermaid Chart</div><div class="val">258</div><span class="delta down">▼ from 370</span><div class="cap"><code>VS Code Connect Diagram To Mermaid Chart</code> · /wk · −30.3%</div></div>
+    <div class="card"><div class="label">Open / pull from cloud</div><div class="val">72</div><span class="delta down">▼ from 84</span><div class="cap"><code>VS Code Edit Diagram Locally</code> · /wk · −14.3%</div></div>
+    <div class="card"><div class="label">Edit → push to cloud</div><div class="val">43</div><span class="delta down">▼ from 63</span><div class="cap"><code>VS Code Edit Diagram In Mermaid Chart</code> · /wk · −31.7%</div></div>
   </div>
-  <div class="cap" style="margin-top:8px"><b>Sync recovers:</b> connect, pull and push all ticked back up after last week's soft patch. But repair <b>failure rose to ~27.5%</b> (from 22.1%) on flat volume — the §3.2 leg is measurable and trending the wrong way. Get an owner on the failed slice.</div>
+  <div class="cap" style="margin-top:8px"><b>Sync retreats:</b> connect, pull and push all fell together (−30% / −14% / −32%) off the Aug 24 high, on flat activation — so it's not installs. Repair failure came down from the 27.5% Aug 3 spike but has turned back up (19.0%→22.3%) on flat volume. Neither leg is trending the right way.</div>
 
   <div class="section">Instrumentation watch — login + monetization</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login attribution<small style="display:block;color:var(--faint);font-size:10px;margin-top:3px;word-break:break-all">Campaign User landing @server · filter utm_source + current_path to isolate VS Code</small></div><span class="pill ok" style="margin-top:8px;display:inline-block">working · gap expected</span></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">pluginSource on paid<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">plugin→paid attribution</small></div><span class="pill open" style="margin-top:8px;display:inline-block">pending collab</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login prompt funnel<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">Shown 5,104 → Clicked 4,386 → Completed 1,157</small></div><span class="pill ok" style="margin-top:8px;display:inline-block">✓ LIVE (Jul 22)</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Monetization funnel<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">241 upgrade prompts → 32 clicks (~13%)</small></div><span class="pill ok" style="margin-top:8px;display:inline-block">✓ LIVE (Jul 22)</span></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login prompt funnel<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">Shown 4,309 → Clicked 3,633 → Completed 915</small></div><span class="pill ok" style="margin-top:8px;display:inline-block">✓ LIVE (Jul 22)</span></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Monetization funnel<small style="display:block;color:var(--faint);font-size:11px;margin-top:3px">175 upgrade prompts → 26 clicks (~15%)</small></div><span class="pill ok" style="margin-top:8px;display:inline-block">✓ LIVE (Jul 22)</span></div>
   </div>
-  <div class="cap" style="margin-top:8px"><b>Login funnel, 2nd full week.</b> 5,104 shown → 86% click → <b>26% complete</b> (1,157). The leak is click→complete, not prompt→click. Completions (1,157) track legacy <code>VS Code User Logged In</code> (1,102). <b>pluginSource-on-paid</b> is the last piece keeping plugin→paid unmeasurable end-to-end — the upgrade funnel shows intent (241→32), not conversion.</div>
+  <div class="cap" style="margin-top:8px"><b>Login funnel, 6th full week.</b> 4,309 shown → 84% click → <b>25% complete</b> (915). The leak is still click→complete; the rates are unchanged, the <i>volume</i> is what fell — shown −14%, completed −16% WoW. Completions (915) track legacy <code>VS Code User Logged In</code> (871 unique / 926 total). Upgrade funnel: 175→26, intent not conversion; <b>pluginSource-on-paid</b> still the missing piece.</div>
 
   <div class="section">Actions</div>
   <div class="actions">
-    <div class="act"><span>🛠️</span><div><b>Repair failure jumped to 27.5%</b> (224/814) from 22.1% last week, on flat volume. Now measured directly via <code>VS Code Repair Diagram</code> <code>status</code> — needs an owner on the failed slice before it drags M-metrics.</div></div>
-    <div class="act"><span>🔎</span><div><b>Login slide now ~11 weeks</b> (~2.9k→1.10k, ~−63%). Activation is steady (154k), so this is login/UX, not installs. Gate 0.71% and falling faster than activation. Still ownerless.</div></div>
-    <div class="act"><span>🚀</span><div><b>PLUG-98 funnels wired into the weekly pull</b> — <code>VS Code Sign-In Prompt Shown/Clicked</code> + <code>Sign-In Completed</code> (by <code>trigger</code>), <code>VS Code Upgrade Prompt Shown/Clicked</code>, <code>VS Code Repair Diagram</code> (status). Sign-in is the M1 backbone; the 26% click→complete rate is the live leak signal.</div></div>
-    <div class="act"><span>📊</span><div><b>Review-funnel naming gap:</b> Sync App Review Triggered fired 3× but Accepted/Rejected/Closed stay at 0 — confirm the surface is wired (PLUG-91). Separately, <code>pluginSource</code> on paid still pending collab.</div></div>
+    <div class="act"><span>🔻</span><div><b>Sync round-trip fell ~30% in one week</b> (connect 370→258, push 63→43, pull 84→72) on flat activation (155k). First sub-300 connect week since M2 was defined. Check the Aug 31 week for a release or regression before reading it as demand.</div></div>
+    <div class="act"><span>🔎</span><div><b>Login slide now ~15 weeks</b> (~2.9k→0.87k, ~−70%). Gate 0.56%, a new low, and legacy Logged In and Sign-In Completed agree on it. Funnel rates are flat — fewer people are reaching the prompt at all. Still ownerless.</div></div>
+    <div class="act"><span>📈</span><div><b>Git bot regenerations stepped up +51%</b> since the last published week (16.6k→25.1k) and have held two weeks. The one source growing. Worth a breakdown by repo/org to know whether it's new installs or heavier existing repos.</div></div>
+    <div class="act"><span>🛠️</span><div><b>Repair failure 22.3%</b> (155/695), back up from 19.0%. Below the 27.5% Aug 3 peak but not trending down. Still needs an owner on the failed slice.</div></div>
+    <div class="act"><span>⚠️</span><div><b>Pipeline gap:</b> the weekly refresh failed Aug 17, 24, 31 and Sep 7 — the GitHub token behind the scheduled push expired (401 on every call). Rotated 2026-09-08; the four missing weeks are folded into this run. Review-surface events re-mapped (see above). <code>pluginSource</code> on paid still pending collab.</div></div>
   </div>
 
-  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702) — same activation/login events. All prior-week figures match last week's dashboard. Pull spec locked in plugins-metrics-staple.md §5 (identical every week). Prose backup: metrics-report-2026-08-10.md</div>
+  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702) — same activation/login events. Rev 7 (Aug 3 week) figures re-pulled and match exactly. M1 uses unique users on <code>VS Code User Logged In</code>. Weekly buckets Mon–Sun. Pull spec: plugins-metrics-staple.md §5, with the review-surface substitution noted. Prose backup: metrics-report-2026-09-08.md</div>
 </body>
 </html>
