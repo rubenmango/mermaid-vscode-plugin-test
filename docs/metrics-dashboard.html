@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plugins Metrics — 2026-09-14</title>
+<title>Plugins Metrics — 2026-10-13</title>
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
@@ -38,11 +38,10 @@
   .pill.open{color:var(--bad);background:rgba(248,113,113,.12)}
   .pill.gap{color:var(--warn);background:rgba(251,191,36,.12)}
   .chart{margin-top:14px;display:flex;align-items:flex-end;gap:5px;height:120px}
-  .bar{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+  .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
   .bar .b{width:100%;border-radius:3px 3px 0 0;background:var(--info)}
   .bar.drop .b{background:var(--accent)}
   .bar.part .b{background:var(--faint);opacity:.6}
-  .bar.rename .b{background:var(--warn);opacity:.75}
   .bar .t{font-size:9px;color:var(--faint);white-space:nowrap}
   .ann{font-size:11px;color:var(--bad);margin-top:8px}
   .chips{display:flex;flex-direction:column;gap:10px}
@@ -56,146 +55,147 @@
   .act b{color:var(--txt)}
   a{color:var(--info)}
   .foot{color:var(--faint);font-size:11px;margin-top:20px;border-top:1px solid var(--line);padding-top:12px}
-  .banner{background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.35);border-radius:10px;padding:12px 14px;font-size:12.5px;margin-bottom:18px}
-  .banner b{color:var(--warn)}
-  #hubnav{position:fixed;bottom:14px;left:14px;z-index:9999;font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:rgba(20,20,30,.85);color:#fff;padding:8px 13px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)}
+  .alert{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35);
+    border-left:3px solid var(--bad);border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:12.5px;color:var(--txt)}
+  .alert h2{font-size:13px;margin:0 0 6px;text-transform:uppercase;letter-spacing:.06em;color:var(--bad)}
 </style>
 </head>
 <body>
-  <a id="hubnav" href="../index.html">← Hub</a>
-  <h1>Plugins Metrics <span class="pill gap" style="font-size:10px;vertical-align:middle">⚠ namespace migration</span> <span class="pill ok" style="font-size:10px;vertical-align:middle">✓ commit nudge live</span></h1>
-  <div class="sub">Trailing 7d <b>Sep 7–13</b> vs prior <b>Aug 31–Sep 6</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-09-14 (rev 9 — weekly refresh)</div>
+  <a id="hubnav" href="../index.html" style="position:fixed;bottom:14px;left:14px;z-index:9999;font:600 12px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:rgba(20,20,30,.85);color:#fff;padding:8px 13px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)">← Hub</a>
+  <h1>Plugins Metrics <span class="pill open" style="font-size:10px;vertical-align:middle">🚨 M1 has no denominator — week 5</span></h1>
+  <div class="sub">Trailing 7d <b>Oct 5–11</b> vs prior <b>Sep 28–Oct 4</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-10-13</div>
 
-  <div class="banner"><b>⚠ Read this first.</b> The Sep 4 release migrated VS Code telemetry to a new <code>VS Code Commercial *</code> namespace. Migration is now ~near-complete, so every legacy <code>VS Code *</code> event fell hard this week for reasons that have nothing to do with usage. All VS Code figures below are <b>legacy + Commercial summed</b>. Server-side <code>Created diagram</code> is flat (−3.0%), which confirms demand did not move. <b>There is still no activation event in the new namespace</b> — the M1 denominator is frozen at the last clean week.</div>
+  <div class="alert">
+    <h2>Logins flat; the commit nudge bounced, the login gate did not</h2>
+    Sign-in completions held at <b>1,604</b> (from 1,613; path 1,976 → 1,998 → 1,744 → 1,613 → 1,604). Starts ▲3.1% and start rate up to <b>9.0%</b>, but completion among starters slipped to <b>85.5%</b> (from 88.6%) — net zero. Meanwhile commit-nudge reach jumped <b>+26.2%</b> to 42,057 users on a flat base (<code>Previewed</code> 36,233, ▲1.8%), so last week's "both prompts shrinking" was not an exposure cap. The gate alone stayed flat at ~20.8k.
+    <div style="margin-top:10px">Interim M1 (still needs your call): completions ÷ Previewed uniques = <b>4.4%</b> (was 4.5%).</div>
+  </div>
 
   <div class="grid kpis">
     <div class="card">
-      <div class="label">Login completions <span class="pill ok" style="margin-left:4px">slide broken</span></div>
-      <div class="val">2,016</div>
-      <span class="delta up">▲ 64.2%</span>
-      <div class="cap">unique users · legacy 40 + <code>Commercial user log in</code> <code>action=completed</code> 1,976 · path 1,102→1,089→1,134→1,041→1,228→<b>2,016</b> · first rise since May</div>
-    </div>
-    <div class="card">
-      <div class="label">Commit nudge · accepted</div>
-      <div class="val">2,331</div>
-      <span class="delta up">▲ new · now measurable</span>
-      <div class="cap"><code>Commercial Commit Prompt</code> · 159,055 shown → 2,331 accepted (<b>1.5%</b>) → 67,634 dismissed (42.5%) · PLUG-90 shipped + instrumented</div>
+      <div class="label">Login completions</div>
+      <div class="val">1,604</div>
+      <span class="delta flat">▼ 0.6%</span>
+      <div class="cap">unique users · Commercial <code>action=completed</code> · slide stopped, ~19% below Sep peak · legacy logins 9/wk, excluded</div>
     </div>
     <div class="card">
       <div class="label">Git bot regenerations</div>
-      <div class="val">18,389</div>
-      <span class="delta down">▼ 26.8%</span>
-      <div class="cap"><code>GitHub Regenerate Event</code> · server-side, <b>unaffected by the rename — this decline is real</b> · gives back most of the mid-Aug step-up (16.6k→25.1k→18.4k)</div>
+      <div class="val">31,906</div>
+      <span class="delta down">▼ 2.1%</span>
+      <div class="cap">2nd small step off the 34.5k record · <b>278 bot users</b> (▲ from 263, 4th rise) · ~148/day</div>
     </div>
     <div class="card">
-      <div class="label">Repair · fail rate</div>
-      <div class="val">21.8%</div>
-      <span class="delta flat">≈ flat vs 22.3%</span>
-      <div class="cap">159 failed / 729 · now read from <code>Commercial AI Action</code> <code>aiAction=repair</code> + <code>status</code> · 27.5%→26.3%→22.8%→19.0%→22.3%→21.8%</div>
+      <div class="label">Commit nudge — users shown</div>
+      <div class="val">42,057</div>
+      <span class="delta up">▲ 26.2%</span>
+      <div class="cap"><b>75.0% dismiss</b> (was 70.8%) · 4.1% accept (was 4.6%) · 1,706 accepting users ▲10.5% · 3-wk rate improvement reversed</div>
+    </div>
+    <div class="card">
+      <div class="label">Repair failure rate</div>
+      <div class="val">22.4%</div>
+      <span class="delta down">▲ 1.8pt · 6th week ~21–22%</span>
+      <div class="cap">139 failed / 621 repairs (repairs ▼ 21.5%) · 21.8 → 22.3 → 21.4 → 20.6 → 22.4</div>
     </div>
   </div>
 
-  <div class="section">Q3 goal metrics — proposed (1 outcome · ≤3 metrics)</div>
-  <div class="cap" style="margin-top:-6px;margin-bottom:12px">Outcome: turn one-off diagram generation in VS Code into logged-in, recurring use.</div>
-  <div class="grid" style="grid-template-columns:repeat(2,1fr)">
-    <div class="card">
-      <div class="label">M1 · Login conversion <span class="pill gap" style="margin-left:6px">numerator good · denominator broken</span></div>
-      <div class="val">~1.30%*</div>
-      <span class="delta up">▲ from 0.79%</span>
-      <div class="cap">2,016 logins ÷ <b>frozen</b> 155,214 activations (last clean week, Aug 31). *No activation event exists in the Commercial namespace, so the true denominator is unknown. Numerator is solid; the <b>rate</b> carries an asterisk. Note the published 0.56% for Aug 31 was understated — it missed 357 Commercial logins; corrected it is 0.79%.</div>
-    </div>
-    <div class="card">
-      <div class="label">M2 · Connect to cloud <span class="pill gap" style="margin-left:6px">series retired</span></div>
-      <div class="val">n/a</div>
-      <span class="delta flat">mapping unconfirmed</span>
-      <div class="cap">Legacy <code>VS Code Connect Diagram To Mermaid Chart</code> collapsed 258→25 on the rename. Successor is likely <code>Commercial Diagram Managed</code> / <code>Diagram Synced</code> (550 events, up from 76) but the old→new mapping is <b>unconfirmed</b>, so no number is published rather than a wrong one.</div>
-    </div>
-  </div>
-
-  <div class="section">The new login gate — why logins doubled</div>
+  <div class="section">Login funnel — settled, not recovering</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card"><div class="label">Hard prompt shown</div><div class="val">22,035</div><div class="cap">unique users (92,972 events) · <code>Commercial Hard Login Prompt Shown</code> · vs ~4.3k events/wk on the old soft prompt</div></div>
-    <div class="card"><div class="label">Sign-in started</div><div class="val">2,254</div><div class="cap">unique · <b>10.2%</b> of users shown · trigger <code>mermaid-sidebar</code> 4,127 events, <code>preview-repair</code> 7</div></div>
-    <div class="card"><div class="label">Sign-in completed</div><div class="val">1,976</div><div class="cap">unique · <b>87.7%</b> of starters finish — vs 25% on the legacy soft-prompt funnel</div></div>
-    <div class="card"><div class="label">Shown → completed</div><div class="val">9.0%</div><div class="cap">end-to-end on the new gate · the leak moved from click→complete to <b>shown→start</b></div></div>
+    <div class="card"><div class="label">Active base (Previewed)</div><div class="val">36,233</div><span class="delta flat">▲ 1.8%</span><div class="cap">was 35,609 · 35,529 two weeks ago · <b>flat</b></div></div>
+    <div class="card"><div class="label">Hard login prompt — users</div><div class="val">20,825</div><span class="delta flat">▼ 0.4%</span><div class="cap">was 20,904 · 57.5% of Previewed users</div></div>
+    <div class="card"><div class="label">Sign-in started</div><div class="val">1,876</div><span class="delta up">▲ 3.1%</span><div class="cap"><b>9.0% of users shown</b> · was 8.7%</div></div>
+    <div class="card"><div class="label">Sign-in completed</div><div class="val">1,604</div><span class="delta flat">▼ 0.6%</span><div class="cap"><b>85.5% of started</b> · was 88.6%</div></div>
   </div>
-  <div class="cap" style="margin-top:8px">The Sep 4 release quietly shipped the install-gate lever we have been arguing for since June. It works: completion among starters went from 25% to 88%, and absolute logins rose 64% in one week. Nobody announced it. The remaining leak is getting people to <i>start</i> — 90% of the 22k who see the gate never tap it.</div>
+  <div class="cap" style="margin-top:8px">Base stable, gate flat, starts marginally up, completion marginally down. 91% of users shown still never tap it. <code>trigger</code> is 99.9% <code>mermaid-sidebar</code> (3,274 of 3,276 starts); <code>preview-repair</code> fired 2 starts / 3 completions; pre-commit, review-bulk-action and connect-diagram have never appeared. The nudge's +26% bounce on the same base says the gate's flat reach is specific to the gate — check for an exposure cap or trigger condition the nudge doesn't have.</div>
 
-  <div class="section">Activation health — legacy event dying, no replacement</div>
+  <div class="section">Git bot — slightly fewer regenerations, more users again</div>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><div class="label">Regenerations</div><div class="val">31,906</div><span class="delta down">▼ 2.1% (was 32,602)</span><div class="cap">server-side, unaffected by rename</div></div>
+    <div class="card"><div class="label">Weekly bot users</div><div class="val">278</div><span class="delta up">▲ 5.7% (was 263)</span><div class="cap">240 · 249 · 263 · <b>278</b></div></div>
+    <div class="card"><div class="label">Daily active bot users</div><div class="val">~148</div><span class="delta flat">≈ flat</span><div class="cap">124–164/day · Mon Oct 12 opened at 174, series high</div></div>
+    <div class="card"><div class="label">Peak day</div><div class="val">5,531</div><span class="delta flat">Mon Oct 5</span><div class="cap">vs 5,793 last week</div></div>
+  </div>
+  <div class="cap" style="margin-top:8px">Same healthy shape as last week: user base broadening for a fourth week, load per repo easing. Nothing to act on.</div>
+
+  <div class="section">Activation health — legacy series dead, no successor</div>
   <div class="grid two">
     <div class="card">
       <div class="bigstat">
-        <span class="n">70k</span>
-        <span class="pill open">rename artifact · not a real drop</span>
+        <span class="n">15.6k</span>
+        <span class="pill open">migration decay · unusable</span>
       </div>
-      <div class="cap">Weekly users · legacy <code>VS Code Extension Activated</code> (wk Sep 7 = 70,057, was 155,214). The fall is users auto-updating to the Commercial build, which emits <b>no activation event at all</b>. Biggest unique count in the new family is <code>Commercial Diagram Previewed</code> at 33,014 — not an activation proxy. April drop still unrecovered underneath.</div>
+      <div class="cap">Weekly users · legacy <code>VS Code Extension Activated</code> (wk Oct 5 = 15,626, from 16,744 and 155,214 at Aug 31). Clients on the Commercial namespace don't fire it. Nothing replaces it. The 17-event Commercial family is unchanged for a fifth week.</div>
       <div class="chart">
         <div class="bar"><div class="b" style="height:100%"></div><div class="t">Apr06</div></div>
         <div class="bar drop"><div class="b" style="height:55%"></div><div class="t">Apr13</div></div>
         <div class="bar drop"><div class="b" style="height:49%"></div><div class="t">Apr20</div></div>
         <div class="bar drop"><div class="b" style="height:45%"></div><div class="t">Apr27</div></div>
         <div class="bar"><div class="b" style="height:47%"></div><div class="t">May04</div></div>
-        <div class="bar"><div class="b" style="height:47%"></div><div class="t">May11</div></div>
-        <div class="bar"><div class="b" style="height:48%"></div><div class="t">May18</div></div>
-        <div class="bar"><div class="b" style="height:47%"></div><div class="t">May25</div></div>
-        <div class="bar"><div class="b" style="height:48%"></div><div class="t">Jun01</div></div>
-        <div class="bar"><div class="b" style="height:48%"></div><div class="t">Jun08</div></div>
-        <div class="bar"><div class="b" style="height:46%"></div><div class="t">Jun15</div></div>
-        <div class="bar"><div class="b" style="height:46%"></div><div class="t">Jun22</div></div>
-        <div class="bar"><div class="b" style="height:45%"></div><div class="t">Jun29</div></div>
-        <div class="bar"><div class="b" style="height:45%"></div><div class="t">Jul06</div></div>
-        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Jul13</div></div>
-        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Jul20</div></div>
-        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Jul27</div></div>
-        <div class="bar"><div class="b" style="height:43%"></div><div class="t">Aug03</div></div>
-        <div class="bar"><div class="b" style="height:43%"></div><div class="t">Aug10</div></div>
-        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Aug17</div></div>
-        <div class="bar"><div class="b" style="height:44%"></div><div class="t">Aug24</div></div>
-        <div class="bar"><div class="b" style="height:43%"></div><div class="t">Aug31</div></div>
-        <div class="bar rename"><div class="b" style="height:20%"></div><div class="t">Sep07</div></div>
+        <div class="bar"><div class="b" style="height:47%"></div><div class="t">May18</div></div>
+        <div class="bar"><div class="b" style="height:48.0%"></div><div class="t">Jun01</div></div>
+        <div class="bar"><div class="b" style="height:46.3%"></div><div class="t">Jun15</div></div>
+        <div class="bar"><div class="b" style="height:45.3%"></div><div class="t">Jun29</div></div>
+        <div class="bar"><div class="b" style="height:44.5%"></div><div class="t">Jul13</div></div>
+        <div class="bar"><div class="b" style="height:43.7%"></div><div class="t">Jul27</div></div>
+        <div class="bar"><div class="b" style="height:42.7%"></div><div class="t">Aug10</div></div>
+        <div class="bar"><div class="b" style="height:43.7%"></div><div class="t">Aug24</div></div>
+        <div class="bar"><div class="b" style="height:43.5%"></div><div class="t">Aug31</div></div>
+        <div class="bar drop"><div class="b" style="height:19.6%"></div><div class="t">Sep07</div></div>
+        <div class="bar drop"><div class="b" style="height:8.3%"></div><div class="t">Sep14</div></div>
+        <div class="bar drop"><div class="b" style="height:5.8%"></div><div class="t">Sep21</div></div>
+        <div class="bar drop"><div class="b" style="height:4.7%"></div><div class="t">Sep28</div></div>
+        <div class="bar drop"><div class="b" style="height:4.4%"></div><div class="t">Oct05</div></div>
       </div>
-      <div class="ann">▲ Sep 07 (amber) is the namespace migration, not lost users. Apr 6→27 drop (357k→161k) still unrecovered beneath it.</div>
+      <div class="ann">▼ Apr 6→27 drop (357k→161k) never recovered. Sep 7→Oct 5 is the namespace migration, <b>not</b> a new cliff. Previewed uniques (36.2k, ▲1.8%) show no step-down this week.</div>
     </div>
     <div class="card">
       <div class="label">Standing data points</div>
       <div class="chips" style="margin-top:12px">
-        <div class="chip"><div class="k">Install gate — <b>moved</b><small>hard gate shipped Sep 4 · 2.0k logins</small></div><span class="pill ok">~1.30%*</span></div>
-        <div class="chip"><div class="k">Login slide — <b>broken</b><small>15 wks down, +64% this week</small></div><span class="pill ok">REVERSED</span></div>
-        <div class="chip"><div class="k">AI silent-fail — flat<small>21.8% repair failure (159/729)</small></div><span class="pill open">WATCH</span></div>
-        <div class="chip"><div class="k">pluginSource on paid<small>now on 2 Commercial events, still 0 paid events</small></div><span class="pill gap">missing</span></div>
-        <div class="chip"><div class="k">Activation denominator<small>no event in new namespace</small></div><span class="pill open">NEW BLOCKER</span></div>
+        <div class="chip"><div class="k">Install gate<small>no activation event · interim proxy 4.4% of Previewed</small></div><span class="pill open">unmeasurable</span></div>
+        <div class="chip"><div class="k">Login in-funnel<small>1,876 started → 1,604 completed</small></div><span class="pill ok">85.5% · ▼ 3.1pt</span></div>
+        <div class="chip"><div class="k">Login start rate<small>20,825 shown → 1,876 started</small></div><span class="pill gap">9.0% · ▲ 0.3pt</span></div>
+        <div class="chip"><div class="k">Repair failure rate<small>139 / 621 · 22.4%, 20.6%, 21.4%</small></div><span class="pill open">22.4% · stuck</span></div>
+        <div class="chip"><div class="k">April activation drop<small>superseded by Sep 4 migration</small></div><span class="pill ok">not recurring</span></div>
+        <div class="chip"><div class="k">pluginSource on paid<small>100% undefined on PAID_CONVERSION (983/wk)</small></div><span class="pill gap">still missing</span></div>
       </div>
     </div>
   </div>
 
+  <div class="section">Monetization intent — small-n, best click-through yet</div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><div class="label">Upgrade Prompt Shown</div><div class="val">248</div><span class="delta up">▲ 13.8% (was 218)</span></div>
+    <div class="card"><div class="label">Upgrade Prompt Clicked</div><div class="val">31</div><span class="delta up">▲ 72% (was 18)</span></div>
+    <div class="card"><div class="label">Click-through</div><div class="val">12.5%</div><span class="delta up">was 8.3%</span><div class="cap">small-n — treat ±5pt as noise</div></div>
+  </div>
+  <div class="cap" style="margin-top:8px"><code>blockedFeature</code>: connect_diagram 176 shown / 23 clicked (13.1%), add_diagram 71 / 8, duplicate_diagram 1 / 0. Connect-diagram is both the dominant limit and the better converter. Paid conversion still can't be linked: <code>pluginSource</code> is 100% undefined on <code>PAID_CONVERSION</code> (983 events this week). One collab-side change on one event.</div>
+
+  <div class="section">Creation volume — Commercial soft (−10%), base flat, control flat</div>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><div class="label">Commercial Diagram Created</div><div class="val">2,846</div><span class="delta down">▼ 10.6%</span><div class="cap">was 3,183 · creating users 941 (▼ 4.7%) — lighter use, not fewer people</div></div>
+    <div class="card"><div class="label">Commercial Diagram Synced</div><div class="val">570</div><span class="delta up">▲ 8.6%</span><div class="cap">was 525 · may cover Local Sync (PLUG-77), unconfirmed</div></div>
+    <div class="card"><div class="label">Commercial AI Action</div><div class="val">3,265</div><span class="delta down">▼ 10.4%</span><div class="cap">generate 1,100 · openChat 1,137 · repair 621 · improve 399 · regenerate 8</div></div>
+    <div class="card"><div class="label">Product-wide created (control)</div><div class="val">21,081</div><span class="delta flat">▲ 1.5%</span><div class="cap">flat — no demand move</div></div>
+  </div>
+  <div class="cap" style="margin-top:8px">Legacy events still decaying, <b>not demand</b>: Generate-from-Code <b>122</b>, AI Chat Generated <b>25</b>, Pre-Commit Regenerate <b>0</b>, <code>VS Code User Logged In</code> <b>9</b>.</div>
+
   <div class="section">New-feature instrumentation</div>
   <div class="grid" style="grid-template-columns:repeat(5,1fr)">
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">In-PR Diff</div><span class="pill gap" style="margin-top:8px;display:inline-block">missing</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Commit Nudge</div><span class="pill ok" style="margin-top:8px;display:inline-block">✓ LIVE (Sep 4)</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Local Sync</div><span class="pill gap" style="margin-top:8px;display:inline-block">unconfirmed</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Slice-3 gate</div><span class="pill ok" style="margin-top:8px;display:inline-block">✓ LIVE · hard prompt</span></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">PR-review surface</div><span class="pill gap" style="margin-top:8px;display:inline-block">13 actions · 2 accepts</span></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Commit Nudge</div><span class="pill ok" style="margin-top:8px;display:inline-block">LIVE · full funnel</span><div class="cap">shown/accepted/dismissed</div></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login funnel</div><span class="pill ok" style="margin-top:8px;display:inline-block">LIVE</span><div class="cap">trigger + action</div></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Upgrade funnel</div><span class="pill ok" style="margin-top:8px;display:inline-block">LIVE</span><div class="cap">split by <code>blockedFeature</code></div></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">In-PR Diff</div><span class="pill open" style="margin-top:8px;display:inline-block">absent</span><div class="cap">PLUG-89 · no event by name</div></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Activation</div><span class="pill open" style="margin-top:8px;display:inline-block">MISSING · wk 5</span><div class="cap">blocking M1</div></div>
   </div>
-  <div class="cap" style="margin-top:8px"><b>Two gaps closed this week.</b> The create-on-commit nudge (PLUG-90) is live as <code>VS Code Commercial Commit Prompt</code> with <code>action</code> = shown/accepted/dismissed and <code>promptType</code> = newDiagram/regenerate — exactly the instrumentation PLUG-91 asked for. The Slice-3 login gate is live as <code>Commercial Hard Login Prompt Shown</code> + <code>user log in</code> with <code>trigger</code>. In-PR diff still absent. Local Sync absent by name; <code>Commercial Diagram Synced</code> (550 events, was 76) may cover it — unconfirmed. Review surface: 13 actions all week (5 openReviewUI, 5 returnToReview, 2 accept, 1 close) — unchanged in two months.</div>
-
-  <div class="section">Creation by source — legacy + Commercial</div>
-  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card"><div class="label">Created diagram (control)</div><div class="val">21,678</div><span class="delta flat">▼ 3.0%</span><div class="cap">server-side, product-wide · <b>flat — proves the client declines are the rename</b></div></div>
-    <div class="card"><div class="label">VS Code creation (combined)</div><div class="val">4,263</div><span class="delta down">▼ 47.3%</span><div class="cap">legacy Generate-from-Code 1,368 + <code>Commercial Diagram Created</code> 2,895 · ⚠ definitions differ, <b>not a like-for-like comparison</b></div></div>
-    <div class="card"><div class="label">AI actions (combined)</div><div class="val">3,639</div><span class="delta up">▲ 91.9%</span><div class="cap">⚠ <code>Commercial AI Action</code> is broader than legacy AI-Chat · split: generate 1,259 · openChat 1,068 · repair 729 · improve 334</div></div>
-    <div class="card"><div class="label">Upgrade prompt · click rate</div><div class="val">7.2%</div><span class="delta down">▼ from 14.9%</span><div class="cap">265 shown → 19 clicked · <code>blockedFeature</code>: connect_diagram 165/13 · add_diagram 75/4</div></div>
-  </div>
-  <div class="cap" style="margin-top:8px">The two combined VS Code figures are <b>directionally unreliable this week</b> and are shown only for continuity. <code>Commercial Diagram Created</code> is not a rename of <code>Generate Diagram From Code</code> (peak 550/day vs 1,500/day), and <code>Commercial AI Action</code> bundles chat-opens with generations. Use <code>Created diagram</code> as the truth for demand until the old→new map is confirmed.</div>
+  <div class="cap" style="margin-top:8px"><b>Review funnel:</b> <code>Commercial Mermaid Sync Review Action</code> fired <b>3</b> times (13 prior). Ten weeks at ~13, now 3 — first movement ever, and it is down. Local Sync (PLUG-77) and Bot Edit Detected still absent by name.</div>
 
   <div class="section">Actions</div>
   <div class="actions">
-    <div class="act"><span>🚨</span><div><b>Get an activation event into the Commercial namespace.</b> This is now the top blocker: M1 is the plugins headline metric for the Q3 review, its numerator just improved 64%, and we cannot publish a rate. The frozen 155k denominator holds for maybe two more weeks. Owner needed on the Sep 4 release.</div></div>
-    <div class="act"><span>🎉</span><div><b>The install gate moved.</b> A hard login prompt shipped Sep 4 — 22k users/wk see it, 88% of starters complete (was 25%), logins +64%. This is the lever the head-of-product report argued for in June, shipped without announcement. Worth writing up before the Q3 review, and worth attacking the real leak: 90% of people shown the gate never start.</div></div>
-    <div class="act"><span>📉</span><div><b>Git bot fell 26.8%</b> (25.1k→18.4k), and it is server-side so this one is real. It gives back most of the mid-Aug step-up. Break down by repo/org to see whether a few heavy repos went quiet or installs churned.</div></div>
-    <div class="act"><span>🔎</span><div><b>Commit nudge accepts at 1.5%</b> (2,331 of 159,055) with 42.5% dismissed outright. Huge reach, thin conversion — but it is already producing roughly as many creations as everything else in VS Code. Good candidate for the next design test.</div></div>
-    <div class="act"><span>🗺️</span><div><b>Staple §5 needs a Commercial rewrite.</b> Its review-funnel event names don't exist, and every VS Code metric now needs legacy + Commercial summed. Also chase the old→new map for the round-trip events (Connect / Edit Locally / Edit in MC) so M2 can come back. <code>pluginSource</code> now rides on two Commercial events but still no paid event — the ask is cleanly collab-side now.</div></div>
+    <div class="act"><span>🚨</span><div><b>Activation event in the <code>Commercial</code> namespace — fifth week asking.</b> Decision needed: adopt <code>Diagram Previewed</code> uniques as the interim M1 denominator (4.4% this week) or keep publishing no rate.</div></div>
+    <div class="act"><span>🔍</span><div><b>Why did the nudge bounce (+26%) and the gate not?</b> Same base, same week. If the gate has an exposure cap or a narrower trigger, that is the reach lever — before any prompt redesign.</div></div>
+    <div class="act"><span>🎯</span><div><b>Login start is still the leak</b> — 91% of users shown never tap it; completion dipped to 85.5% but remains solved. Nudge accept rate fell to 4.1% as reach grew: new exposures convert worse than repeat ones.</div></div>
+    <div class="act"><span>👀</span><div><b>Repair failure back to 22.4%</b> (139 silent failures) for a sixth week in the 21–22% band. Still needs a ticket.</div></div>
+    <div class="act"><span>📉</span><div><b>Sync review surface fell 13 → 3.</b> It was never used; now it is less used. Worth a decision on whether to keep measuring it.</div></div>
   </div>
 
-  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702). M1 numerator = unique users on legacy <code>VS Code User Logged In</code> + <code>VS Code Commercial user log in</code> filtered to <code>action=completed</code> (the raw event count fires ~2.5×/user and would read 6,397). Weekly buckets Mon–Sun; 7d windows are Sep 7–13 vs Aug 31–Sep 6, complete days only. Pull spec: plugins-metrics-staple.md §5 — <b>superseded this run</b>, see Actions. Prose backup: metrics-report-2026-09-14.md</div>
+  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702). Pull spec in plugins-metrics-staple.md §5 (⚠ needs the Commercial-namespace rewrite). Prose backup: metrics-report-2026-10-13.md · Method: totals from daily/weekly series summed into the two windows; unique-user figures from Mon–Sun week buckets. Run fell on a Tuesday; Mon–Sun windows (Oct 5–11 vs Sep 28–Oct 4) kept for continuity with all prior reports.</div>
 </body>
 </html>
