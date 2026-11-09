@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plugins Metrics — 2026-11-02</title>
+<title>Plugins Metrics — 2026-11-09</title>
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
@@ -62,68 +62,68 @@
 </head>
 <body>
   <a id="hubnav" href="../index.html" style="position:fixed;bottom:14px;left:14px;z-index:9999;font:600 12px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:rgba(20,20,30,.85);color:#fff;padding:8px 13px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px)">← Hub</a>
-  <h1>Plugins Metrics <span class="pill open" style="font-size:10px;vertical-align:middle">🚨 M1 has no denominator — week 8</span></h1>
-  <div class="sub">Trailing 7d <b>Oct 26–Nov 1</b> vs prior <b>Oct 19–25</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-11-02</div>
+  <h1>Plugins Metrics <span class="pill open" style="font-size:10px;vertical-align:middle">🚨 M1 has no denominator — week 9</span></h1>
+  <div class="sub">Trailing 7d <b>Nov 2–8</b> vs prior <b>Oct 26–Nov 1</b> · Mixpanel "Mermaid Chart" 2954792 (EU) · run 2026-11-09</div>
 
   <div class="alert">
-    <h2>Logins drop 28% in a broad-down week; Installation Click halves on Oct 27</h2>
-    Sign-in completions <b>1,067</b> (from 1,482; path 1,976 → 1,998 → 1,744 → 1,613 → 1,604 → 1,588 → 1,482 → 1,067 — now 47% below the Sep peak and the lowest week since the hard gate shipped). Every step leaked: <code>Previewed</code> base 32,601 (▼7.9%), gate reach 17,024 (▼15.2%), starts 1,290 (▼25.2%, start rate <b>7.6%</b> from 8.6%), completion of starters <b>82.7%</b> (from 85.9%). The week was down everywhere — product-wide created ▼15.7%, server-side git bot ▼17.2%, every weekday ~12% under the prior week — so most of it reads as seasonal (autumn half-term, month end), but the VS Code funnel fell ~3.5× harder than its base. Separately, <b>Installation Click halved</b> (4,926, ▼49.4%) as a step on Tue Oct 27 — something shipped. Repair failure eased to <b>24.3%</b> (120 of 494), still above the 21–23% band for a second week.
-    <div style="margin-top:10px">Interim M1 (still needs your call): completions ÷ Previewed uniques = <b>3.3%</b> (from 4.2% — biggest move in the proxy's history).</div>
+    <h2>Logins fall another 18%; completion of starters hits 76%; repair failure 32% — third week above band</h2>
+    Sign-in completions <b>871</b> (from 1,067; path 1,976 → 1,998 → 1,744 → 1,613 → 1,604 → 1,588 → 1,482 → 1,067 → 871 — now 56% below the Sep peak, a new low since the hard gate shipped). Base and gate fell ~10–12% together (<code>Previewed</code> 29,292 ▼10.1%, gate reach 14,995 ▼11.9%), starts tracked the gate (1,140, ▼11.6%, start rate <b>7.6%</b> flat) — the new leak is the last step: <b>76.4% of starters completed</b> (from 82.7%, 85.9% three weeks ago). Last week's "seasonal quiet week" read is dead: the server-side git bot bounced to a <b>record 37,260</b> (▲46.5%) while product-wide <code>Created diagram</code> fell <i>again</i> to <b>13,910 (▼23.7%; −36% in two weeks)</b>. Repair failure <b>32.3%</b> (120 of 371) — third consecutive week above the 21–23% band, now a regression by our own rule.
+    <div style="margin-top:10px">Interim M1 (still needs your call): completions ÷ Previewed uniques = <b>3.0%</b> (from 3.3%, 4.2% before that — three weeks down).</div>
   </div>
 
   <div class="grid kpis">
     <div class="card">
       <div class="label">Login completions</div>
-      <div class="val">1,067</div>
-      <span class="delta down">▼ 28.0%</span>
-      <div class="cap">unique users · Commercial <code>action=completed</code> · 47% below Sep peak · completion of starters 82.7% (▼ 3.2pt) · legacy logins 5/wk, excluded</div>
+      <div class="val">871</div>
+      <span class="delta down">▼ 18.4%</span>
+      <div class="cap">unique users · Commercial <code>action=completed</code> · 56% below Sep peak · completion of starters <b>76.4%</b> (▼ 6.3pt, series low) · legacy logins 4/wk, excluded</div>
     </div>
     <div class="card">
       <div class="label">Git bot regenerations</div>
-      <div class="val">25,437</div>
-      <span class="delta down">▼ 17.2%</span>
-      <div class="cap">series low (30.7k → 25.4k) · <b>301 bot users</b> (▲ 14, record, 7th rise) · ~162/day</div>
+      <div class="val">37,260</div>
+      <span class="delta up">▲ 46.5%</span>
+      <div class="cap"><b>record</b> (prior high 34,491; 25.4k → 37.3k) · 299 bot users (▼ 2 from record) · ~163/day flat · Wed Nov 4 = 8,561</div>
     </div>
     <div class="card">
       <div class="label">Commit nudge — users shown</div>
-      <div class="val">35,821</div>
-      <span class="delta down">▼ 10.9%</span>
-      <div class="cap"><b>70.5% dismiss</b> (was 73.4%) · 4.2% accept (was 4.1%) · 1,517 accepting users (▼ 9.0%) · third weekly decline in reach, conversion still edging up</div>
+      <div class="val">34,672</div>
+      <span class="delta down">▼ 3.2%</span>
+      <div class="cap"><b>69.6% dismiss</b> (was 70.5%, new low) · 4.2% accept (flat) · 1,473 accepting users (▼ 2.9%) · the one VS Code surface that held</div>
     </div>
     <div class="card">
       <div class="label">Repair failure rate</div>
-      <div class="val">24.3%</div>
-      <span class="delta down">▼ 3.3pt · still above the 21–23% band</span>
-      <div class="cap">120 failed / 494 repairs (repairs ▼ 19.4%) · 21.4 → 20.6 → 22.4 → 22.6 → 27.6 → <b>24.3</b> · second week above band</div>
+      <div class="val">32.3%</div>
+      <span class="delta down">▲ 8.0pt · third week above the 21–23% band</span>
+      <div class="cap">120 failed / 371 repairs (repairs ▼ 24.9%; failures flat at 120, successes 374 → 251) · 22.4 → 22.6 → 27.6 → 24.3 → <b>32.3</b> · regression by rule</div>
     </div>
   </div>
 
-  <div class="section">Login funnel — every step leaked</div>
+  <div class="section">Login funnel — base and gate down ~10%, the last step is the new leak</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card"><div class="label">Active base (Previewed)</div><div class="val">32,601</div><span class="delta down">▼ 7.9%</span><div class="cap">was 35,412 · 36,349 two weeks ago · second soft week in a row</div></div>
-    <div class="card"><div class="label">Hard login prompt — users</div><div class="val">17,024</div><span class="delta down">▼ 15.2%</span><div class="cap">was 20,078 · 52.2% of Previewed users (was 56.7%) · largest drop since launch</div></div>
-    <div class="card"><div class="label">Sign-in started</div><div class="val">1,290</div><span class="delta down">▼ 25.2%</span><div class="cap"><b>7.6% of users shown</b> · was 8.6%</div></div>
-    <div class="card"><div class="label">Sign-in completed</div><div class="val">1,067</div><span class="delta down">▼ 28.0%</span><div class="cap"><b>82.7% of started</b> · was 85.9%, 83.5%, 85.5% before</div></div>
+    <div class="card"><div class="label">Active base (Previewed)</div><div class="val">29,292</div><span class="delta down">▼ 10.1%</span><div class="cap">was 32,601 · 35,412 · 36,349 · third decline running (−19% over three weeks)</div></div>
+    <div class="card"><div class="label">Hard login prompt — users</div><div class="val">14,995</div><span class="delta down">▼ 11.9%</span><div class="cap">was 17,024 · 51.2% of Previewed users (was 52.2%)</div></div>
+    <div class="card"><div class="label">Sign-in started</div><div class="val">1,140</div><span class="delta down">▼ 11.6%</span><div class="cap"><b>7.6% of users shown</b> · flat (was 7.6%)</div></div>
+    <div class="card"><div class="label">Sign-in completed</div><div class="val">871</div><span class="delta down">▼ 18.4%</span><div class="cap"><b>76.4% of started</b> · was 82.7%, 85.9%, 83.5% before · series low</div></div>
   </div>
-  <div class="cap" style="margin-top:8px">Base ▼7.9%, gate ▼15.2%, starts ▼25.2%, completion ▼3.2pt. The gate reached a smaller share of the base, a smaller share of those shown tapped it, and fewer of those finished. <code>trigger</code> is now 100% <code>mermaid-sidebar</code> (2,341 of 2,341 starts); <code>preview-repair</code> went 6 → 0; pre-commit, review-bulk-action and connect-diagram have never appeared. Create Account Click fell 22.3% (1,075) and Installation Click halved as a step on Oct 27 (Mon 1,370 → Tue 889 → ~750/day). Check what shipped Oct 27. The <code>status</code> property remains success-only (see Actions).</div>
+  <div class="cap" style="margin-top:8px">Base ▼10.1%, gate ▼11.9%, starts ▼11.6%, completion ▼6.3pt. Unlike last week the gate and start rate held their shares — the whole excess loss is inside the auth flow: nearly a quarter of people who tap sign-in now don't finish. <code>trigger</code> is 100% <code>mermaid-sidebar</code> (2,038 of 2,038 starts); pre-commit, review-bulk-action, connect-diagram and preview-repair have not fired. The <code>status</code> property is still success-only, so this cannot be diagnosed from data — someone should walk the sign-in flow this week. Installation Click 3,714 (▼24.6%, ~530/weekday — the Oct 27 step held and drifted lower, still unexplained); Create Account Click 981 (▼8.7%).</div>
 
-  <div class="section">Git bot — volume at a series low, reach at a record</div>
+  <div class="section">Git bot — record volume, flat reach</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card"><div class="label">Regenerations</div><div class="val">25,437</div><span class="delta down">▼ 17.2% (was 30,723)</span><div class="cap">server-side, unaffected by rename · 32.6k → 31.9k → 29.1k → 30.7k → 25.4k</div></div>
-    <div class="card"><div class="label">Weekly bot users</div><div class="val">301</div><span class="delta up">▲ 4.9% (was 287)</span><div class="cap">263 · 278 · 286 · 287 · <b>301</b> · biggest gain since Sep</div></div>
-    <div class="card"><div class="label">Daily active bot users</div><div class="val">~162</div><span class="delta up">▲ from ~159</span><div class="cap">151–177/day · Mon Oct 26 = 177</div></div>
-    <div class="card"><div class="label">Peak day</div><div class="val">4,196</div><span class="delta down">Wed Oct 28</span><div class="cap">vs 5,409 last week · no day above 4.2k</div></div>
+    <div class="card"><div class="label">Regenerations</div><div class="val">37,260</div><span class="delta up">▲ 46.5% (was 25,437)</span><div class="cap">server-side, unaffected by rename · 31.9k → 29.1k → 30.7k → 25.4k → <b>37.3k</b> · record</div></div>
+    <div class="card"><div class="label">Weekly bot users</div><div class="val">299</div><span class="delta flat">▼ 0.7% (was 301)</span><div class="cap">278 · 286 · 287 · 301 · <b>299</b> · first non-rise in eight weeks, but flat</div></div>
+    <div class="card"><div class="label">Daily active bot users</div><div class="val">~163</div><span class="delta flat">flat (was ~162)</span><div class="cap">130–178/day · Mon Nov 2 = 178 · Sat Nov 7 = 130</div></div>
+    <div class="card"><div class="label">Peak day</div><div class="val">8,561</div><span class="delta up">Wed Nov 4</span><div class="cap">vs 4,196 last week · prior record day 5,409 · Mon–Fri all above 5.1k</div></div>
   </div>
-  <div class="cap" style="margin-top:8px">More repos, less load per repo. The volume drop matches the product-wide dip (▼15.7%) almost exactly, so it reads as the quiet week, not churn — the record user count says reach is still growing. Watch whether volume bounces with the product next week.</div>
+  <div class="cap" style="margin-top:8px">Same number of repos, far more load per repo — a handful of heavy repos or a backlog flush after the quiet week. Crucially this is the server-side metric that was supposed to co-move with product-wide creation under the "seasonal" read; it bounced hard and creation did not. Watch whether volume holds above 30k.</div>
 
   <div class="section">Activation health — legacy series dead, no successor</div>
   <div class="grid two">
     <div class="card">
       <div class="bigstat">
-        <span class="n">12.4k</span>
+        <span class="n">11.1k</span>
         <span class="pill open">migration decay · unusable</span>
       </div>
-      <div class="cap">Weekly users · legacy <code>VS Code Extension Activated</code> (wk Oct 26 = 12,385, from 13,351 and 155,214 at Aug 31). Clients on the Commercial namespace don't fire it. Nothing replaces it. The 17-event Commercial family is unchanged for an eighth week.</div>
+      <div class="cap">Weekly users · legacy <code>VS Code Extension Activated</code> (wk Nov 2 = 11,091, from 12,385 and 155,214 at Aug 31). Clients on the Commercial namespace don't fire it. Nothing replaces it. The 17-event Commercial family is unchanged for a ninth week.</div>
       <div class="chart">
         <div class="bar"><div class="b" style="height:100%"></div><div class="t">Apr06</div></div>
         <div class="bar drop"><div class="b" style="height:55%"></div><div class="t">Apr13</div></div>
@@ -147,38 +147,39 @@
         <div class="bar drop"><div class="b" style="height:4.0%"></div><div class="t">Oct12</div></div>
         <div class="bar drop"><div class="b" style="height:3.7%"></div><div class="t">Oct19</div></div>
         <div class="bar drop"><div class="b" style="height:3.4%"></div><div class="t">Oct26</div></div>
+        <div class="bar drop"><div class="b" style="height:3.1%"></div><div class="t">Nov02</div></div>
       </div>
-      <div class="ann">▼ Apr 6→27 drop (357k→161k) never recovered. Sep 7→Oct 26 is the namespace migration, <b>not</b> a new cliff. Previewed uniques (32.6k, ▼7.9%) are down two weeks running (−2.6% → −7.9%) — not yet April's shape, but the first back-to-back fall since the migration. If it doesn't bounce with the product next week, treat it as a step.</div>
+      <div class="ann">▼ Apr 6→27 drop (357k→161k) never recovered. Sep 7→Nov 2 is the namespace migration, <b>not</b> a new cliff. Previewed uniques (29.3k, ▼10.1%) are down three weeks running (−2.6% → −7.9% → −10.1%, −19% total) — a trend now, not a dip, though not April's −45% shape. The product-wide control fell faster, so it is not VS Code-specific.</div>
     </div>
     <div class="card">
       <div class="label">Standing data points</div>
       <div class="chips" style="margin-top:12px">
-        <div class="chip"><div class="k">Install gate<small>no activation event · interim proxy 3.3% of Previewed</small></div><span class="pill open">unmeasurable</span></div>
-        <div class="chip"><div class="k">Login in-funnel<small>1,290 started → 1,067 completed</small></div><span class="pill gap">82.7% · ▼ 3.2pt</span></div>
-        <div class="chip"><div class="k">Login start rate<small>17,024 shown → 1,290 started</small></div><span class="pill gap">7.6% · ▼ 1.0pt</span></div>
-        <div class="chip"><div class="k">Repair failure rate<small>120 / 494 · 24.3%, 27.6%, 22.6%</small></div><span class="pill open">24.3% · above band</span></div>
-        <div class="chip"><div class="k">April activation drop<small>Previewed down 2 wks; watch</small></div><span class="pill gap">watch</span></div>
-        <div class="chip"><div class="k">pluginSource on paid<small>100% undefined on PAID_CONVERSION (706/wk)</small></div><span class="pill gap">still missing</span></div>
+        <div class="chip"><div class="k">Install gate<small>no activation event · interim proxy 3.0% of Previewed</small></div><span class="pill open">unmeasurable</span></div>
+        <div class="chip"><div class="k">Login in-funnel<small>1,140 started → 871 completed</small></div><span class="pill open">76.4% · ▼ 6.3pt</span></div>
+        <div class="chip"><div class="k">Login start rate<small>14,995 shown → 1,140 started</small></div><span class="pill gap">7.6% · flat</span></div>
+        <div class="chip"><div class="k">Repair failure rate<small>120 / 371 · 32.3%, 24.3%, 27.6%</small></div><span class="pill open">32.3% · regression</span></div>
+        <div class="chip"><div class="k">April activation drop<small>Previewed down 3 wks (−19%); control down more</small></div><span class="pill gap">trend · watch</span></div>
+        <div class="chip"><div class="k">pluginSource on paid<small>100% undefined on PAID_CONVERSION (727/wk)</small></div><span class="pill gap">still missing</span></div>
       </div>
     </div>
   </div>
 
   <div class="section">Monetization intent — fewer prompts, click-through flat (small-n)</div>
   <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-    <div class="card"><div class="label">Upgrade Prompt Shown</div><div class="val">170</div><span class="delta down">▼ 31.5% (was 248)</span></div>
-    <div class="card"><div class="label">Upgrade Prompt Clicked</div><div class="val">22</div><span class="delta down">▼ 31% (was 32)</span></div>
-    <div class="card"><div class="label">Click-through</div><div class="val">12.9%</div><span class="delta flat">was 12.9%</span><div class="cap">small-n — treat ±5pt as noise</div></div>
+    <div class="card"><div class="label">Upgrade Prompt Shown</div><div class="val">143</div><span class="delta down">▼ 15.9% (was 170)</span></div>
+    <div class="card"><div class="label">Upgrade Prompt Clicked</div><div class="val">18</div><span class="delta down">▼ 18% (was 22)</span></div>
+    <div class="card"><div class="label">Click-through</div><div class="val">12.6%</div><span class="delta flat">was 12.9%</span><div class="cap">small-n — treat ±5pt as noise</div></div>
   </div>
-  <div class="cap" style="margin-top:8px"><code>blockedFeature</code>: connect_diagram 108 shown / 14 clicked (13.0%), add_diagram 62 / 8, duplicate_diagram 0. Connect-diagram remains the dominant limit. Paid conversion still can't be linked: <code>pluginSource</code> is 100% undefined on <code>PAID_CONVERSION</code> (706 events this week — paid did <b>not</b> fall with the rest). One collab-side change on one event.</div>
+  <div class="cap" style="margin-top:8px"><code>blockedFeature</code>: connect_diagram 105 shown / 15 clicked (14.3%), add_diagram 37 / 2, regenerate 1 / 1 (first ever), duplicate_diagram 0. Connect-diagram remains the dominant limit. Paid conversion still can't be linked: <code>pluginSource</code> is 100% undefined on <code>PAID_CONVERSION</code> (727 events this week, ▲3.0% — paid has <b>not</b> fallen with creation in either week). One collab-side change on one event.</div>
 
-  <div class="section">Creation volume — everything down, VS Code more than the product</div>
+  <div class="section">Creation volume — VS Code down ~12%, product-wide control down 24% again</div>
   <div class="grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="card"><div class="label">Commercial Diagram Created</div><div class="val">2,514</div><span class="delta down">▼ 20.5%</span><div class="cap">was 3,161 · creating users 843 (▼ 12.6%) · two-week rise undone</div></div>
-    <div class="card"><div class="label">Commercial Diagram Synced</div><div class="val">428</div><span class="delta down">▼ 25.6%</span><div class="cap">was 575 · may cover Local Sync (PLUG-77), unconfirmed</div></div>
-    <div class="card"><div class="label">Commercial AI Action</div><div class="val">2,963</div><span class="delta down">▼ 11.2%</span><div class="cap">generate 1,141 (▼ 11%) · openChat 1,024 (▼ 5%) · repair 494 · improve 299 · regenerate 5</div></div>
-    <div class="card"><div class="label">Product-wide created (control)</div><div class="val">18,224</div><span class="delta down">▼ 15.7%</span><div class="cap">every weekday ~12% under the prior week · broad quiet week; VS Code (−20%) fell further</div></div>
+    <div class="card"><div class="label">Commercial Diagram Created</div><div class="val">2,216</div><span class="delta down">▼ 11.9%</span><div class="cap">was 2,514 · creating users 726 (▼ 13.9%) · second decline</div></div>
+    <div class="card"><div class="label">Commercial Diagram Synced</div><div class="val">312</div><span class="delta down">▼ 27.1%</span><div class="cap">was 428 · may cover Local Sync (PLUG-77), unconfirmed</div></div>
+    <div class="card"><div class="label">Commercial AI Action</div><div class="val">2,706</div><span class="delta down">▼ 8.7%</span><div class="cap">generate 1,124 (▼ 1.5%) · openChat 987 (▼ 3.6%) · repair 371 (▼ 25%) · improve 210 (▼ 30%) · regenerate 14</div></div>
+    <div class="card"><div class="label">Product-wide created (control)</div><div class="val">13,910</div><span class="delta down">▼ 23.7%</span><div class="cap">21.6k → 18.2k → 13.9k (−36% in 2 wks) · creating users 8,462 (▼ 22.3%) · <b>check for a tracking change</b></div></div>
   </div>
-  <div class="cap" style="margin-top:8px">Legacy events still decaying, <b>not demand</b>: Generate-from-Code <b>77</b>, AI Chat Generated <b>7</b>, Pre-Commit Regenerate <b>0</b>, <code>VS Code User Logged In</code> <b>5</b>. Diagram Managed 608 (▼ 12.9%) · Installation Click <b>4,926 (▼ 49.4%, step on Oct 27)</b> · Create Account Click 1,075 (▼ 22.3%) · Extension Exception 992 (▼ 25.2%, tracks session volume).</div>
+  <div class="cap" style="margin-top:8px">Legacy events still decaying, <b>not demand</b>: Generate-from-Code <b>52</b>, AI Chat Generated <b>22</b> (18 on Tue Nov 3), Pre-Commit Regenerate <b>0</b>, <code>VS Code User Logged In</code> <b>4</b>. Diagram Managed 458 (▼ 24.7%) · Installation Click <b>3,714 (▼ 24.6%)</b> · Create Account Click 981 (▼ 8.7%) · Extension Exception 965 (▼ 2.7%).</div>
 
   <div class="section">New-feature instrumentation</div>
   <div class="grid" style="grid-template-columns:repeat(5,1fr)">
@@ -186,20 +187,20 @@
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Login funnel</div><span class="pill ok" style="margin-top:8px;display:inline-block">LIVE</span><div class="cap">trigger + action</div></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Upgrade funnel</div><span class="pill ok" style="margin-top:8px;display:inline-block">LIVE</span><div class="cap">split by <code>blockedFeature</code></div></div>
     <div class="card" style="padding:12px"><div class="k" style="font-size:12px">In-PR Diff</div><span class="pill open" style="margin-top:8px;display:inline-block">absent</span><div class="cap">PLUG-89 · no event by name</div></div>
-    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Activation</div><span class="pill open" style="margin-top:8px;display:inline-block">MISSING · wk 8</span><div class="cap">blocking M1</div></div>
+    <div class="card" style="padding:12px"><div class="k" style="font-size:12px">Activation</div><span class="pill open" style="margin-top:8px;display:inline-block">MISSING · wk 9</span><div class="cap">blocking M1</div></div>
   </div>
-  <div class="cap" style="margin-top:8px"><b>Review funnel:</b> <code>Commercial Mermaid Sync Review Action</code> fired <b>15</b> times (6 prior; 7 of them on Wed Oct 28). Noise around a dead surface. Local Sync (PLUG-77) and Bot Edit Detected still absent by name. <code>Diagram Diff View Shown</code> (11.7k/wk) and <code>VS Code Open Diagram Diff</code> exist but are pre-existing diff views, not the In-PR comment.</div>
+  <div class="cap" style="margin-top:8px"><b>Review funnel:</b> <code>Commercial Mermaid Sync Review Action</code> fired <b>8</b> times (15 prior). Noise around a dead surface. Local Sync (PLUG-77) and Bot Edit Detected still absent by name. In-PR diff (PLUG-89) still not instrumented (PLUG-91).</div>
 
   <div class="section">Actions</div>
   <div class="actions">
-    <div class="act"><span>🚨</span><div><b>Logins −28% against a base −8%.</b> Gate reach fell to 52.2% of Previewed (from 56.7%), start rate to 7.6%, completion to 82.7%. Most of the week is seasonal (product-wide ▼15.7%, bot ▼17.2%), but the funnel lost ~3.5× what the base lost. <code>trigger</code> is 100% sidebar; <code>status</code> is still success-only, so the completion slide can't be diagnosed. Ask for a failed/cancelled login event, and check what shipped on Oct 27.</div></div>
-    <div class="act"><span>🔍</span><div><b>Installation Click halved as a step on Tue Oct 27</b> (Mon 1,370 → Tue 889 → ~750/day; week 4,926, ▼49.4%). Create Account Click ▼22.3% alongside. This is the one clean step-change in the week — find the release or UI change behind it before reading anything else as demand.</div></div>
-    <div class="act"><span>🚨</span><div><b>Activation event in the <code>Commercial</code> namespace — eighth week asking.</b> The interim proxy moved 4.2% → 3.3% this week, the largest move it has made; without a denominator that would have been invisible. Decision: adopt <code>Diagram Previewed</code> uniques as the interim M1 denominator, or keep publishing no rate.</div></div>
-    <div class="act"><span>⚠️</span><div><b>Repair failure 24.3% — second week above the 21–23% band</b> (27.6 → 24.3). Eased but not back. 120 silent failures on 494 repairs. Keep the ticket open; a third week above 23% makes it a regression.</div></div>
-    <div class="act"><span>🎯</span><div><b>Nudge reach down a third week (44.2k → 40.2k → 35.8k)</b>; accepts 1,517, accept rate 4.2% (up again), dismiss 70.5% (lowest yet). Reach is tracking the base; conversion keeps improving at the margin. The prompt is still the lever.</div></div>
-    <div class="act"><span>📈</span><div><b>Git bot users hit a record 301</b> (+14, biggest gain since Sep) while volume hit a series low (25.4k, ▼17.2%, no day above 4.2k). Reach up, load per repo down — matches the quiet week. Watch whether volume bounces with the product.</div></div>
+    <div class="act"><span>🚨</span><div><b>Login completion of starters fell to 76.4%</b> (82.7 → 76.4; 85.9% three weeks ago). Gate share and start rate held, so the excess loss is inside the auth flow. <code>status</code> is success-only and <code>trigger</code> is 100% sidebar — the data cannot say why. Ask for a failed/cancelled login event, and have someone walk the sidebar sign-in flow this week looking for a broken redirect or a slow callback.</div></div>
+    <div class="act"><span>🔍</span><div><b>Product-wide <code>Created diagram</code> −36% in two weeks</b> (21.6k → 18.2k → 13.9k; users 12.9k → 8.5k) while the git bot set a record. The seasonal explanation no longer holds. Either web creation is in real decline or the event changed ~Oct 26. This is the control for every VS Code read — ask the app team.</div></div>
+    <div class="act"><span>🚨</span><div><b>Repair failure 32.3% — third week above the 21–23% band</b> (27.6 → 24.3 → 32.3). Failures flat at 120 while successes fell 374 → 251. By the rule set two weeks ago this is a regression: open/escalate the ticket.</div></div>
+    <div class="act"><span>🚨</span><div><b>Activation event in the <code>Commercial</code> namespace — ninth week asking.</b> Interim proxy 4.2% → 3.3% → 3.0%. Decision: adopt <code>Diagram Previewed</code> uniques as the interim M1 denominator, or keep publishing no rate.</div></div>
+    <div class="act"><span>🔍</span><div><b>Installation Click did not recover</b> (3,714, ▼24.6%; ~530/weekday vs 1,370 on Mon Oct 26). The Oct 27 step is now two weeks old and still unexplained — find the release.</div></div>
+    <div class="act"><span>🎯</span><div><b>Nudge held</b>: 34,672 shown (▼3.2%), 1,473 accepting, accept 4.2% flat, dismiss 69.6% (new low). The only VS Code surface that did not deteriorate this week.</div></div>
   </div>
 
-  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702). Pull spec in plugins-metrics-staple.md §5 (⚠ needs the Commercial-namespace rewrite). Prose backup: metrics-report-2026-11-02.md · Method: totals from daily series summed into the two windows; unique-user figures from Mon–Sun week buckets. Windows Oct 26–Nov 1 vs Oct 19–25.</div>
+  <div class="foot">Reconciled with org board "VS Code Plugin" (id 11152702). Pull spec in plugins-metrics-staple.md §5 (⚠ needs the Commercial-namespace rewrite). Prose backup: metrics-report-2026-11-09.md · Method: totals from daily series summed into the two windows; unique-user figures from Mon–Sun week buckets. Windows Nov 2–8 vs Oct 26–Nov 1.</div>
 </body>
 </html>
